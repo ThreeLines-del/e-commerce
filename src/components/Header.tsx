@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContextObject } from "../CartContextObject";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -35,7 +36,7 @@ const Header = () => {
             placeholder="search"
           />
         </div>
-        <div>Cart {cart.getTotalQuantity()}</div>
+        <NavLink to={"/cart"}>Cart {cart.getTotalQuantity()}</NavLink>
       </div>
       <Navbar />
     </header>

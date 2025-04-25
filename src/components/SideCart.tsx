@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContextObject } from "../CartContextObject";
 import SideCartProduct from "./SideCartProduct";
+import { NavLink } from "react-router-dom";
 
 interface SideCartType {
   isSideCartOpen: boolean;
@@ -28,7 +29,7 @@ const SideCart: React.FC<SideCartType> = ({ isSideCartOpen }) => {
           <h1 className="text-sm">Subtotal</h1>
           <h1 className="text-lg font-medium text-red-900">{`$${totalCartCost}`}</h1>
           <button className="border border-gray-400 rounded-2xl text-xs px-7 py-[2px] mt-2 hover:cursor-pointer hover:bg-gray-100">
-            Go to Cart
+            <NavLink to={"/cart"}>Go to cart</NavLink>
           </button>
         </div>
 

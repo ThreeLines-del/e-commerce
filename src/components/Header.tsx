@@ -36,7 +36,13 @@ const Header = () => {
             placeholder="search"
           />
         </div>
-        <NavLink to={"/cart"}>Cart {cart.getTotalQuantity()}</NavLink>
+        <NavLink
+          to={"/cart"}
+          className="bg-amber-300 flex gap-2 w-15 rounded-sm justify-center py-2"
+        >
+          <img className="h-6" src="/svgs/cart.png" alt="" />
+          <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
+        </NavLink>
       </div>
       <Navbar />
     </header>

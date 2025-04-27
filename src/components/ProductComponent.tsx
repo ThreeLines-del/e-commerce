@@ -3,13 +3,7 @@ import { ProductContextObject } from "../ProductContextObject";
 import Product from "./Product";
 import ProductSkeleton from "./ProductSkeleton";
 
-interface ProductComponentType {
-  setIsSideCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const ProductComponent: React.FC<ProductComponentType> = ({
-  setIsSideCartOpen,
-}) => {
+const ProductComponent = () => {
   const productItems = useContext(ProductContextObject);
   const products = productItems.productItems;
   const isLoading = !products || products.length === 0;
@@ -21,13 +15,7 @@ const ProductComponent: React.FC<ProductComponentType> = ({
             return <ProductSkeleton key={i} />;
           })
         : products.map((product) => {
-            return (
-              <Product
-                key={product.id}
-                product={product}
-                setIsSideCartOpen={setIsSideCartOpen}
-              />
-            );
+            return <Product key={product.id} product={product} />;
           })}
     </>
   );

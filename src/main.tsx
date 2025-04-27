@@ -6,6 +6,7 @@ import { CartProvider } from "./CartContextObject.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CartPage from "./pages/CartPage.tsx";
 import Categories from "./pages/Categories.tsx";
+import SideCartContextProvider from "./SideCartContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +26,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <SideCartContextProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </SideCartContextProvider>
   </StrictMode>
 );

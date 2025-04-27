@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import { ProductType } from "../ProductContextObject";
 import { CartContextObject } from "../CartContextObject";
+import { SideCartContextObject } from "../SideCartContext";
 
 interface ProductProp {
   product: ProductType;
-  setIsSideCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Product: React.FC<ProductProp> = ({ product, setIsSideCartOpen }) => {
+const Product: React.FC<ProductProp> = ({ product }) => {
   const cart = useContext(CartContextObject);
   const quantity = cart.getProductQuantity(product.id);
+  const sideCartState = useContext(SideCartContextObject);
 
   return (
     <div className=" border-[1px] py-5 hover:border-gray-300 border-gray-200 hover:cursor-pointer hover:shadow-lg rounded-sm h-auto flex flex-col gap-2 justify-center items-center">
@@ -52,7 +53,7 @@ const Product: React.FC<ProductProp> = ({ product, setIsSideCartOpen }) => {
         <button
           onClick={() => {
             cart.addOneToCart(product.id);
-            setIsSideCartOpen(true);
+            sideCartState.setIsSideCartOpen(true);
           }}
           className="bg-blue-500 text-white hover:bg-blue-600 hover:cursor-pointer rounded-4xl py-2 px-3"
         >

@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
-import { CartProductType, getProductDataById } from "../CartContextObject";
+import { useContext, useEffect, useState } from "react";
+import {
+  CartContextObject,
+  CartProductType,
+  getProductDataById,
+} from "../CartContextObject";
 import { ProductType } from "../ProductContextObject";
 
 interface CartProduct {
@@ -8,6 +12,7 @@ interface CartProduct {
 
 const CartProduct: React.FC<CartProduct> = ({ item }) => {
   const [products, setProducts] = useState<ProductType>();
+  const cart = useContext(CartContextObject);
 
   useEffect(() => {
     getProductDataById(item.id).then((product) => setProducts(product));
@@ -21,13 +26,26 @@ const CartProduct: React.FC<CartProduct> = ({ item }) => {
         <h1 className="line-clamp-2 text-lg">{products?.title}</h1>
 
         <div className="flex justify-between w-24 border-2 border-amber-300 rounded-2xl text-xs py-[5px] px-2 mt-6 font-bold">
-          <h1 className="hover:cursor-pointer pr-2">+</h1>
+          <h1
+            className="hover:cursor-pointer pr-2"
+            onClick={() => cart.addOneToCart(item.id)}
+          >
+            +
+          </h1>
           <h1>{item.quantity}</h1>
-          <h1 className="hover:cursor-pointer pl-2">-</h1>
+          <h1
+            className="hover:cursor-pointer pl-2"
+            onClick={() => cart.removeOneFromCart(item.id)}
+          >
+            -
+          </h1>
         </div>
 
         <div className="w-32">
-          <h1 className="mt-2 text-blue-500 hover:cursor-pointer hover:text-red-500">
+          <h1
+            className="mt-2 text-blue-500 hover:cursor-pointer hover:text-red-500"
+            onClick={() => cart.deleteFromCart(item.id)}
+          >
             remove from cart
           </h1>
         </div>

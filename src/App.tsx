@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import ProductComponent from "./components/ProductComponent";
 import SideCart from "./components/SideCart";
 import { SideCartContextObject } from "./SideCartContext";
+import Footer from "./components/Footer";
 
 function App() {
   const sideCartState = useContext(SideCartContextObject);
@@ -24,7 +25,7 @@ function App() {
           <ProductComponent />
         </div>
 
-        <div className="h-[500px] bg-amber-200">bottom</div>
+        <Footer />
       </div>
       <SideCart isSideCartOpen={isSideCartOpen} />
     </div>

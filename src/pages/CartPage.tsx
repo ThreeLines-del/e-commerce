@@ -6,7 +6,7 @@ import CartProduct from "../components/CartProduct";
 const CartPage = () => {
   const cart = useContext(CartContextObject);
   const cartItems = cart.items;
-  const [totalCost, setTotalCost] = useState<string>();
+  const [totalCost, setTotalCost] = useState<string>("0");
 
   useEffect(() => {
     cart.getTotalCost().then((cost) => setTotalCost(cost));

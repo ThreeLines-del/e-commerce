@@ -10,7 +10,7 @@ interface SideCartType {
 const SideCart: React.FC<SideCartType> = ({ isSideCartOpen }) => {
   const cart = useContext(CartContextObject);
   const cartItems = cart.items;
-  const [totalCartCost, setTotalCartCost] = useState<string>();
+  const [totalCartCost, setTotalCartCost] = useState<string>("0");
 
   useEffect(() => {
     cart.getTotalCost().then((cost) => setTotalCartCost(cost));

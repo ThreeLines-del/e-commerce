@@ -11,7 +11,15 @@ interface SideCartProductType {
 }
 
 const SideCartProduct: React.FC<SideCartProductType> = ({ item }) => {
-  const [cartProductData, setCartProductData] = useState<ProductType>();
+  const [cartProductData, setCartProductData] = useState<ProductType>({
+    id: 0,
+    title: "",
+    price: 0,
+    description: "",
+    category: "",
+    image: "",
+  });
+
   const cart = useContext(CartContextObject);
 
   useEffect(() => {
@@ -20,12 +28,12 @@ const SideCartProduct: React.FC<SideCartProductType> = ({ item }) => {
         return setCartProductData(data);
       }
     });
-  }, []);
+  }, [item.id]);
 
   return (
     <div className="border-b border-gray-400 h-56 flex flex-col justify-center items-center py-5 px-2">
-      <img className="h-28 w-24" src={cartProductData?.image} alt="" />
-      <h1 className="text-sm font-medium">{`$${cartProductData?.price}`}</h1>
+      <img className="h-28 w-24" src={cartProductData.image} alt="" />
+      <h1 className="text-sm font-medium">{`$${cartProductData.price}`}</h1>
       <div className="flex justify-between w-24 border-2 border-amber-300 rounded-2xl text-xs py-[5px] px-2 mt-2 font-bold">
         <h1
           className="hover:cursor-pointer pr-2"

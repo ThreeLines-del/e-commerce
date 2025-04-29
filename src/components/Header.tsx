@@ -7,14 +7,12 @@ const Navbar = () => {
     <nav className="bg-white shadow-md px-4 py-3 flex items-center">
       {/* Desktop menu */}
       <ul className="flex space-x-6 text-gray-700">
-        <li className="hover:text-blue-600 cursor-pointer">All</li>
-        <li className="cursor-pointer">
-          <div className="relative inline-block text-left">
-            <button className="">Categories</button>
-          </div>
+        <li className="hover:text-blue-600 cursor-pointer">
+          <NavLink to={"/"}>Home</NavLink>
         </li>
-        <li className="hover:text-blue-600 cursor-pointer">Today's Deal</li>
-        <li className="hover:text-blue-600 cursor-pointer">Sell</li>
+        <li className="hover:text-blue-600 cursor-pointer">
+          <NavLink to={"/categories"}>Categories</NavLink>
+        </li>
       </ul>
     </nav>
   );
@@ -25,16 +23,19 @@ const Header = () => {
 
   return (
     <header className="">
-      <div className="bg-blue-300 h-14 flex w-full justify-between items-center px-5">
+      <div className="bg-blue-400 h-14 flex w-full justify-between items-center px-5">
         <div className="">
-          <h2 className="text-xl font-bold text-gray-800">lines.store</h2>
+          <h2 className="text-2xl font-bold text-white">lines.store</h2>
         </div>
-        <div>
+        <div className="w-96 flex justify-between">
           <input
-            className="border rounded-sm p-2 bg-amber-50"
+            className="w-[330px] p-2 bg-amber-50 rounded-l-sm"
             type="text"
             placeholder="search"
           />
+          <div className="flex-1 flex justify-center items-center bg-amber-300 rounded-r-sm hover:bg-amber-400 hover:cursor-pointer">
+            <img className="h-7" src="/svgs/search.png" alt="" />
+          </div>
         </div>
         <NavLink
           to={"/cart"}

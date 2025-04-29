@@ -5,8 +5,9 @@ import "./index.css";
 import { CartProvider } from "./CartContextObject.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CartPage from "./pages/CartPage.tsx";
-import Categories from "./pages/Categories.tsx";
+import CategoriesPage from "./pages/CategoriesPage.tsx";
 import SideCartContextProvider from "./SideCartContext.tsx";
+import ProductProvider from "./ProductContextObject.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/categories",
-    element: <Categories />,
+    element: <CategoriesPage />,
   },
 ]);
 
@@ -28,7 +29,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <SideCartContextProvider>
       <CartProvider>
-        <RouterProvider router={router} />
+        <ProductProvider>
+          <RouterProvider router={router} />
+        </ProductProvider>
       </CartProvider>
     </SideCartContextProvider>
   </StrictMode>

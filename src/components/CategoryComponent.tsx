@@ -3,27 +3,20 @@ import { ProductContextObject } from "../ProductContextObject";
 import Product from "./Product";
 
 interface CategoryComponentType {
-  categoryState: string;
-  setIsSideCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  categoryStringState: string;
 }
 
 const CategoryComponent: React.FC<CategoryComponentType> = ({
-  categoryState,
-  setIsSideCartOpen,
+  categoryStringState,
 }) => {
   const productsByCategory = useContext(ProductContextObject);
-  const products = productsByCategory.getProductsByCategory(categoryState);
+  const products =
+    productsByCategory.getProductsByCategory(categoryStringState);
 
   return (
     <>
       {products.map((product, index) => {
-        return (
-          <Product
-            setIsSideCartOpen={setIsSideCartOpen}
-            key={index}
-            product={product}
-          />
-        );
+        return <Product key={index} product={product} />;
       })}
     </>
   );

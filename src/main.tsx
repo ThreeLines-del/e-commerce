@@ -8,6 +8,7 @@ import CartPage from "./pages/CartPage.tsx";
 import CategoriesPage from "./pages/CategoriesPage.tsx";
 import SideCartContextProvider from "./SideCartContext.tsx";
 import ProductProvider from "./ProductContextObject.tsx";
+import SearchProvider from "./SearchContextObject.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,9 @@ createRoot(document.getElementById("root")!).render(
     <SideCartContextProvider>
       <CartProvider>
         <ProductProvider>
-          <RouterProvider router={router} />
+          <SearchProvider>
+            <RouterProvider router={router} />
+          </SearchProvider>
         </ProductProvider>
       </CartProvider>
     </SideCartContextProvider>

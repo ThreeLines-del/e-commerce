@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import "./App.css";
-import ProductProvider from "./ProductContextObject";
 import Header from "./components/Header";
 
 import ProductComponent from "./components/ProductComponent";
@@ -27,7 +26,7 @@ function App() {
 
         <Footer />
       </div>
-      <SideCart isSideCartOpen={isSideCartOpen} />
+      <SideCart />
     </div>
   );
 }

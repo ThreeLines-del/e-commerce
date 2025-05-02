@@ -2,15 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { CartContextObject } from "../CartContextObject";
 import SideCartProduct from "./SideCartProduct";
 import { NavLink } from "react-router-dom";
+import { SideCartContextObject } from "../SideCartContext";
 
-interface SideCartType {
-  isSideCartOpen: boolean;
-}
-
-const SideCart: React.FC<SideCartType> = ({ isSideCartOpen }) => {
+const SideCart = () => {
   const cart = useContext(CartContextObject);
   const cartItems = cart.items;
   const [totalCartCost, setTotalCartCost] = useState<string>("0");
+  const isSideCartOpen = useContext(SideCartContextObject).isSideCartOpen;
 
   useEffect(() => {
     cart.getTotalCost().then((cost) => setTotalCartCost(cost));

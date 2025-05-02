@@ -1,6 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContextObject } from "../CartContextObject";
 import { NavLink } from "react-router-dom";
+import SearchBar from "./SearchBar";
+import { SearchContextObject } from "../SearchContextObject";
+import Product from "./Product";
 
 const Navbar = () => {
   return (
@@ -20,26 +23,43 @@ const Navbar = () => {
 
 const Header = () => {
   const cart = useContext(CartContextObject);
+  const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
+  const searchContext = useContext(SearchContextObject);
+  const searchProducts = searchContext.filteredProducts;
 
   return (
     <header className="">
       <div className="bg-blue-400 h-14 flex w-full justify-between items-center px-5">
-        <div className="">
+        <div className="z-30">
           <h2 className="text-2xl font-bold text-white">lines.store</h2>
         </div>
-        <div className="w-96 flex justify-between">
-          <input
-            className="w-[330px] p-2 bg-amber-50 rounded-l-sm"
-            type="text"
-            placeholder="search"
-          />
-          <div className="flex-1 flex justify-center items-center bg-amber-300 rounded-r-sm hover:bg-amber-400 hover:cursor-pointer">
-            <img className="h-7" src="/svgs/search.png" alt="" />
+        <SearchBar setIsSearchClicked={setIsSearchClicked} />
+        {isSearchClicked && (
+          <div
+            onClick={() => setIsSearchClicked(false)}
+            className="fixed inset-0 bg-black opacity-50 z-10"
+          ></div>
+        )}
+        {isSearchClicked ? (
+          <div className="h-auto w-[1000px] absolute top-16 left-1/2 transform -translate-x-1/2 bg-white rounded-sm z-20 shadow hover:cursor-pointer">
+            <div className="grid grid-cols-4 gap-2 m-2">
+              {searchProducts === null ? (
+                <></>
+              ) : searchProducts.length === 0 ? (
+                "No results found"
+              ) : (
+                searchProducts.map((product) => {
+                  return <Product product={product} key={product.id} />;
+                })
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
         <NavLink
           to={"/cart"}
-          className="bg-amber-300 flex gap-2 w-15 rounded-sm justify-center py-2"
+          className="bg-amber-300 flex gap-2 w-15 rounded-sm justify-center py-2 z-30"
         >
           <img className="h-6" src="/svgs/cart.png" alt="" />
           <h1 className="font-medium">{cart.getTotalQuantity()}</h1>

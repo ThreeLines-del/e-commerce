@@ -17,7 +17,7 @@ const CartPage = () => {
       <Header />
 
       <div className="flex-1 w-full">
-        <div className="bg-white h-auto mx-20 my-5 p-5">
+        <div className="bg-white h-auto mx-4 sm:mx-20 my-5 p-5">
           <div className="w-full h-20 items-center flex justify-between border-b border-gray-300">
             <h1 className="text-3xl">Shopping Cart</h1>
             <h1 className="mt-12 text-gray-700">Price</h1>

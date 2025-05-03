@@ -20,7 +20,7 @@ function App() {
       >
         <Header />
 
-        <div className="grid grid-cols-4 gap-2 m-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-2 m-2">
           <ProductComponent />
         </div>
 

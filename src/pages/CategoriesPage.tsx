@@ -15,7 +15,7 @@ const Categories = () => {
       <Header />
 
       <div className="flex-1 flex">
-        <div className="backdrop-blur-sm w-1/5 pt-2 border-r border-gray-50 sticky top-0 h-screen overflow-y-auto">
+        <div className="backdrop-blur-sm w-1/3 md:w-1/5 pt-2 border-r border-gray-50 sticky top-0 h-screen overflow-y-auto">
           <h1 className="px-4 text-2xl text-gray-500">Categories</h1>
           <ul className="mt-2">
             {[
@@ -37,7 +37,7 @@ const Categories = () => {
           </ul>
         </div>
 
-        <div className="flex-1 grid grid-cols-3 gap-2 m-2">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-2 m-2">
           <CategoryComponent categoryStringState={categoryStringState} />
         </div>
       </div>

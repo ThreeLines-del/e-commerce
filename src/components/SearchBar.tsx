@@ -1,19 +1,16 @@
 import { useContext } from "react";
 import { SearchContextObject } from "../SearchContextObject";
 
-interface SearchBarType {
-  setIsSearchClicked: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SearchBar: React.FC<SearchBarType> = ({ setIsSearchClicked }) => {
+const SearchBar = () => {
   const searchContext = useContext(SearchContextObject);
   const searchQuery = searchContext.searchQuery;
   const setSearchQuery = searchContext.setSearchQuery;
+  const setIsSearchClicked = searchContext.setIsSearchClicked;
 
   return (
-    <div className="w-96 flex justify-between z-30">
+    <div className="w-40 sm:w-98 flex justify-between z-30">
       <input
-        className="w-[330px] p-2 bg-amber-50 rounded-sm"
+        className="p-2 w-full bg-amber-50 rounded-sm"
         type="text"
         placeholder="search"
         value={searchQuery}

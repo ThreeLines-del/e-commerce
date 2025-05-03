@@ -1,6 +1,12 @@
+import { useContext } from "react";
+import { SearchContextObject } from "../SearchContextObject";
+
 const Footer = () => {
+  const searchContext = useContext(SearchContextObject);
+  const setIsSearchClicked = searchContext.setIsSearchClicked;
+
   return (
-    <div className="h-[500px] bg-blue-50 grid grid-cols-10 gap-4 p-16">
+    <div className="h-auto bg-blue-50 grid grid-cols-4 md:grid-cols-10 gap-4 p-16">
       <div className="h-full w-full flex flex-col gap-10 col-span-3">
         <div>
           <h1 className="text-[20px] font-bold my-5">lines.store</h1>
@@ -28,13 +34,41 @@ const Footer = () => {
           <h1 className="text-[20px] font-bold my-5">Categories</h1>
         </div>
         <div>
-          <h1 className="hover:underline hover:cursor-pointer">Electronics</h1>
-          <h1 className="hover:underline hover:cursor-pointer">Jewelery</h1>
-          <h1 className="hover:underline hover:cursor-pointer">
-            Men's Fashion
+          <h1
+            onClick={() => {
+              searchContext.setSearchQuery("Electronics");
+              setIsSearchClicked(true);
+            }}
+            className="hover:underline hover:cursor-pointer"
+          >
+            Electronics
           </h1>
-          <h1 className="hover:underline hover:cursor-pointer">
-            Women's Fashion
+          <h1
+            onClick={() => {
+              searchContext.setSearchQuery("Jewelery");
+              setIsSearchClicked(true);
+            }}
+            className="hover:underline hover:cursor-pointer"
+          >
+            Jewelery
+          </h1>
+          <h1
+            onClick={() => {
+              searchContext.setSearchQuery("Men's Clothing");
+              setIsSearchClicked(true);
+            }}
+            className="hover:underline hover:cursor-pointer"
+          >
+            Men's Clothing
+          </h1>
+          <h1
+            onClick={() => {
+              searchContext.setSearchQuery("Women's Clothing");
+              setIsSearchClicked(true);
+            }}
+            className="hover:underline hover:cursor-pointer"
+          >
+            Women's Clothing
           </h1>
         </div>
       </div>
@@ -59,7 +93,7 @@ const Footer = () => {
         </div>
         <div>
           <input
-            className="border bg-white border-blue-500 w-60 h-10 rounded-sm p-2"
+            className="border bg-white border-blue-500 w-full h-10 rounded-sm p-2"
             type="text"
             placeholder="Enter your email address"
           />

@@ -5,6 +5,8 @@ interface SearchContextObjectType {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   filteredProducts: ProductType[] | null;
+  isSearchClicked: boolean;
+  setIsSearchClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Children {
@@ -15,11 +17,14 @@ export const SearchContextObject = createContext<SearchContextObjectType>({
   searchQuery: "",
   setSearchQuery: () => {},
   filteredProducts: [],
+  isSearchClicked: false,
+  setIsSearchClicked: () => {},
 });
 
 function SearchProvider({ children }: Children) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debounceQuery, setDebounceQuery] = useState("");
+  const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
   const products = useContext(ProductContextObject).productItems;
 
   useEffect(() => {
@@ -50,6 +55,8 @@ function SearchProvider({ children }: Children) {
     searchQuery: searchQuery,
     setSearchQuery: setSearchQuery,
     filteredProducts: filteredProducts,
+    isSearchClicked: isSearchClicked,
+    setIsSearchClicked: setIsSearchClicked,
   };
 
   return (

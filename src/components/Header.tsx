@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CartContextObject } from "../CartContextObject";
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
@@ -8,7 +8,6 @@ import Product from "./Product";
 const Navbar = () => {
   return (
     <nav className="bg-white shadow-md px-4 py-3 flex items-center">
-      {/* Desktop menu */}
       <ul className="flex space-x-6 text-gray-700">
         <li className="hover:text-blue-600 cursor-pointer">
           <NavLink to={"/"}>Home</NavLink>
@@ -23,17 +22,18 @@ const Navbar = () => {
 
 const Header = () => {
   const cart = useContext(CartContextObject);
-  const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
   const searchContext = useContext(SearchContextObject);
   const searchProducts = searchContext.filteredProducts;
+  const isSearchClicked = searchContext.isSearchClicked;
+  const setIsSearchClicked = searchContext.setIsSearchClicked;
 
   return (
     <header className="">
       <div className="bg-blue-400 h-14 flex w-full justify-between items-center px-5">
         <div className="z-30">
-          <h2 className="text-2xl font-bold text-white">lines.store</h2>
+          <h2 className="sm:text-2xl font-bold text-white">lines.store</h2>
         </div>
-        <SearchBar setIsSearchClicked={setIsSearchClicked} />
+        <SearchBar />
         {isSearchClicked && (
           <div
             onClick={() => setIsSearchClicked(false)}
@@ -41,8 +41,8 @@ const Header = () => {
           ></div>
         )}
         {isSearchClicked ? (
-          <div className="h-auto w-[1000px] absolute top-16 left-1/2 transform -translate-x-1/2 bg-white rounded-sm z-20 shadow hover:cursor-pointer">
-            <div className="grid grid-cols-4 gap-2 m-2">
+          <div className="h-auto w-[300px] sm:w-[500px] md:w-[700px] xl:w-[1000px] absolute top-16 left-1/2 transform -translate-x-1/2 bg-white rounded-sm z-20 shadow hover:cursor-pointer">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 m-2">
               {searchProducts === null ? (
                 <></>
               ) : searchProducts.length === 0 ? (

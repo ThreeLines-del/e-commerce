@@ -59,9 +59,9 @@ const Header = () => {
         )}
         <NavLink
           to={"/cart"}
-          className="bg-amber-300 flex gap-2 w-15 rounded-sm justify-center py-2 z-30"
+          className="bg-amber-300 flex gap-2 w-15 rounded-sm justify-center py-2 z-30 hover:bg-amber-400"
         >
-          <img className="h-6" src="/svgs/cart.png" alt="" />
+          <img className="h-6 hover:animate" src="/svgs/cart.png" alt="" />
           <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
         </NavLink>
       </div>

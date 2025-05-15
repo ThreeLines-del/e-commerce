@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { ProductType } from "./ProductContextObject";
 
 interface Children {
@@ -43,7 +43,14 @@ export async function getProductDataById(id: number): Promise<ProductType> {
 }
 
 export function CartProvider({ children }: Children) {
-  const [cartProducts, setCartProducts] = useState<CartProductType[]>([]);
+  const [cartProducts, setCartProducts] = useState<CartProductType[]>(() => {
+    const stored = localStorage.getItem("cartItems");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
   function getProductQuantity(id: number): number {
     const quantity = cartProducts.find(

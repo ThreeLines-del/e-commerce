@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import "./App.css";
 import Header from "./components/Header";
-
 import ProductComponent from "./components/ProductComponent";
 import SideCart from "./components/SideCart";
 import { SideCartContextObject } from "./SideCartContext";

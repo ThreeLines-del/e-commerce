@@ -4,15 +4,18 @@ import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { SearchContextObject } from "../SearchContextObject";
 import Product from "./Product";
+import { DarkModeContextObject } from "../DarkModeContextObject";
+import { MdDarkMode } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md px-4 py-3 flex items-center">
-      <ul className="flex space-x-6 text-gray-700">
-        <li className="hover:text-blue-600 cursor-pointer">
+    <nav className="bg-white dark:bg-gray-800 px-4 py-3 flex items-center border-b border-gray-100 dark:border-gray-600">
+      <ul className="flex space-x-6 text-gray-700 dark:text-gray-100 font-semibold">
+        <li className="hover:text-blue-300 cursor-pointer transition duration-300">
           <NavLink to={"/"}>Home</NavLink>
         </li>
-        <li className="hover:text-blue-600 cursor-pointer">
+        <li className="hover:text-blue-300 cursor-pointer transition duration-300">
           <NavLink to={"/categories"}>Categories</NavLink>
         </li>
       </ul>
@@ -26,12 +29,13 @@ const Header = () => {
   const searchProducts = searchContext.filteredProducts;
   const isSearchClicked = searchContext.isSearchClicked;
   const setIsSearchClicked = searchContext.setIsSearchClicked;
+  const darkModeContext = useContext(DarkModeContextObject);
 
   return (
     <header className="">
-      <div className="bg-blue-400 h-14 flex w-full justify-between items-center px-5">
+      <div className="h-14 bg-white dark:bg-gray-800 flex w-full justify-between items-center px-5 border-b border-gray-100 dark:border-gray-600">
         <div className="z-30">
-          <h2 className="sm:text-2xl font-bold text-white">lines.store</h2>
+          <h2 className="sm:text-2xl font-bold text-blue-500">lines.store</h2>
         </div>
         <SearchBar />
         {isSearchClicked && (
@@ -57,13 +61,42 @@ const Header = () => {
         ) : (
           <></>
         )}
-        <NavLink
-          to={"/cart"}
-          className="bg-amber-300 flex gap-2 w-15 rounded-sm justify-center py-2 z-30 hover:bg-amber-400"
-        >
-          <img className="h-6 hover:animate" src="/svgs/cart.png" alt="" />
-          <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
-        </NavLink>
+
+        <div className="flex gap-5">
+          {darkModeContext.darkMode ? (
+            <button
+              onClick={() =>
+                darkModeContext.setDarkMode(!darkModeContext.darkMode)
+              }
+              className="flex gap-2 justify-center items-center text-gray-100 text-sm"
+            >
+              Light Mode
+              <span>
+                <MdOutlineLightMode className="scale-125 text-gray-100 hover:scale-150 hover:text-blue-400 hover:cursor-pointer transition ease-in-out duration-300" />
+              </span>
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                darkModeContext.setDarkMode(!darkModeContext.darkMode)
+              }
+              className="flex gap-2 justify-center items-center text-gray-800 text-sm"
+            >
+              Dark Mode
+              <span>
+                <MdDarkMode className="scale-110 text-gray-600 hover:scale-150 hover:text-blue-400 hover:cursor-pointer transition ease-in-out duration-300" />
+              </span>
+            </button>
+          )}
+
+          <NavLink
+            to={"/cart"}
+            className="bg-gray-100 dark:bg-gray-400 flex gap-2 w-15 rounded-sm justify-center py-1 z-30 hover:bg-pink-200 transition duration-300"
+          >
+            <img className="h-6 hover:animate" src="/svgs/cart.png" alt="" />
+            <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
+          </NavLink>
+        </div>
       </div>
       <Navbar />
     </header>

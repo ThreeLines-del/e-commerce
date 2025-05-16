@@ -11,7 +11,7 @@ function App() {
   const isSideCartOpen = sideCartState.isSideCartOpen;
 
   return (
-    <div className="flex">
+    <div className="flex bg-white dark:bg-gray-800 transition-colors duration-300">
       <div
         className={`h-auto w-full transition-all duration-300 ease-in-out ${
           isSideCartOpen ? "mr-32" : ""
@@ -19,7 +19,7 @@ function App() {
       >
         <Header />
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-2 m-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 bg-white dark:bg-gray-700">
           <ProductComponent />
         </div>
 

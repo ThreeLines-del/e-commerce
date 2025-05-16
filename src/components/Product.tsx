@@ -13,12 +13,51 @@ const Product: React.FC<ProductProp> = ({ product }) => {
   const sideCartState = useContext(SideCartContextObject);
 
   return (
-    <div className=" border-[1px] py-5 hover:border-gray-300 border-gray-200 hover:cursor-pointer hover:shadow-lg rounded-sm h-auto flex flex-col gap-2 justify-center items-center">
-      <img className="h-48 w-48 object-fill " src={product.image} alt="" />
-      <div className="w-full px-5">
-        <h1 className="">{product.title}</h1>
-        {/* <p className="text-2xl font-semibold">{`$${product.price}`}</p> */}
-        <h1 className="text-2xl font-medium text-red-900">
+    <div className="border border-gray-100 dark:border-gray-600 h-auto flex flex-col gap-5 justify-center items-center pt-7 pb-8">
+      <div className="bg-gray-100 dark:bg-gray-200 h-60 w-64 flex justify-center items-center rounded-md">
+        <img
+          className="h-36 w-36 object-fill brightness-95 dark:brightness-90"
+          src={product.image}
+          alt=""
+        />
+      </div>
+
+      <div className="flex flex-col gap-3 w-full justify-center items-center">
+        <div className="w-full flex justify-center items-center px-10 dark:text-gray-100">
+          <h1 className="truncate">{product.title}</h1>
+        </div>
+
+        {quantity > 0 ? (
+          <div className="w-full flex justify-between px-5 dark:text-gray-100">
+            <h1>In Cart {`(${quantity})`}</h1>
+            <div className="flex gap-2 text-white">
+              <button
+                onClick={() => cart.addOneToCart(product.id)}
+                className="bg-[#22177A] dark:bg-gray-800 hover:bg-blue-900 hover:cursor-pointer w-8 rounded-full transition duration-300"
+              >
+                +
+              </button>
+              <button
+                onClick={() => cart.removeOneFromCart(product.id)}
+                className=" bg-[#22177A] dark:bg-gray-800 hover:bg-blue-900 hover:cursor-pointer w-8 rounded-full transition duration-300"
+              >
+                -
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => {
+              cart.addOneToCart(product.id);
+              sideCartState.setIsSideCartOpen(true);
+            }}
+            className="bg-[#22177A] dark:bg-gray-800 text-white text-sm hover:bg-blue-900 hover:cursor-pointer rounded-full py-1 px-5 shadow transition duration-300"
+          >
+            Add to Cart
+          </button>
+        )}
+
+        <h1 className="text-xl dark:text-gray-100">
           {`$${product.price.toString()}`.includes(".") ? (
             <>
               ${product.price.toString().split(".")[0]}
@@ -31,35 +70,6 @@ const Product: React.FC<ProductProp> = ({ product }) => {
           )}
         </h1>
       </div>
-      {quantity > 0 ? (
-        <div className="w-full flex justify-between p-5">
-          <h1>In Cart {`(${quantity})`}</h1>
-          <div className="flex gap-2 text-white">
-            <button
-              onClick={() => cart.addOneToCart(product.id)}
-              className="bg-blue-500  hover:bg-blue-600 hover:cursor-pointer w-8 rounded-sm"
-            >
-              +
-            </button>
-            <button
-              onClick={() => cart.removeOneFromCart(product.id)}
-              className=" bg-blue-500  hover:bg-blue-600 hover:cursor-pointer w-8 rounded-sm"
-            >
-              -
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => {
-            cart.addOneToCart(product.id);
-            sideCartState.setIsSideCartOpen(true);
-          }}
-          className="bg-blue-500 text-white hover:bg-blue-600 hover:cursor-pointer rounded-4xl py-2 px-3"
-        >
-          Add to Cart
-        </button>
-      )}
     </div>
   );
 };

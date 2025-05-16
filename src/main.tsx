@@ -9,6 +9,7 @@ import CategoriesPage from "./pages/CategoriesPage.tsx";
 import SideCartContextProvider from "./SideCartContext.tsx";
 import ProductProvider from "./ProductContextObject.tsx";
 import SearchProvider from "./SearchContextObject.tsx";
+import DarkModeProvider from "./DarkModeContextObject.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,14 +29,16 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <SideCartContextProvider>
-      <CartProvider>
-        <ProductProvider>
-          <SearchProvider>
-            <RouterProvider router={router} />
-          </SearchProvider>
-        </ProductProvider>
-      </CartProvider>
-    </SideCartContextProvider>
+    <DarkModeProvider>
+      <SideCartContextProvider>
+        <CartProvider>
+          <ProductProvider>
+            <SearchProvider>
+              <RouterProvider router={router} />
+            </SearchProvider>
+          </ProductProvider>
+        </CartProvider>
+      </SideCartContextProvider>
+    </DarkModeProvider>
   </StrictMode>
 );

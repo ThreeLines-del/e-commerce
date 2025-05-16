@@ -16,17 +16,17 @@ const SideCart = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-screen w-32 bg-white border-l border-gray-400 shadow-lg transform transition-transform duration-300 ${
+      className={`fixed top-0 right-0 h-screen w-32 bg-white dark:bg-gray-700 border-l border-gray-400 dark:border-gray-600 shadow-lg transform transition-transform duration-300 ${
         isSideCartOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
       {/* Make this the flex container */}
       <div className="h-full flex flex-col">
         {/* Fixed header */}
-        <div className="w-full h-24 flex flex-col justify-center items-center border-b border-gray-400">
-          <h1 className="text-sm">Subtotal</h1>
-          <h1 className="text-lg font-medium text-red-900">{`$${totalCartCost}`}</h1>
-          <button className="border border-gray-400 rounded-2xl text-xs px-7 py-[2px] mt-2 hover:cursor-pointer hover:bg-gray-100">
+        <div className="w-full h-24 flex flex-col justify-center items-center border-b border-gray-400 dark:border-gray-600">
+          <h1 className="text-sm dark:text-gray-100">Subtotal</h1>
+          <h1 className="text-lg font-medium text-red-900 dark:text-blue-400">{`$${totalCartCost}`}</h1>
+          <button className="border border-gray-400 dark:border-0 rounded-2xl text-xs px-7 py-[2px] mt-2 hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-blue-900 dark:text-gray-100 dark:bg-gray-800">
             <NavLink to={"/cart"}>Go to cart</NavLink>
           </button>
         </div>

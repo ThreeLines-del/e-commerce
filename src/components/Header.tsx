@@ -41,12 +41,12 @@ const Header = () => {
         {isSearchClicked && (
           <div
             onClick={() => setIsSearchClicked(false)}
-            className="fixed inset-0 bg-black opacity-50 z-10"
+            className="fixed inset-0 bg-black dark:bg-white opacity-50 z-10"
           ></div>
         )}
         {isSearchClicked ? (
-          <div className="h-auto w-[300px] sm:w-[500px] md:w-[700px] xl:w-[1000px] absolute top-16 left-1/2 transform -translate-x-1/2 bg-white rounded-sm z-20 shadow hover:cursor-pointer">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 m-2">
+          <div className="h-auto w-[300px] sm:w-[600px] md:w-[800px] xl:w-[1200px] absolute top-16 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-700 rounded-sm z-20 shadow hover:cursor-pointer">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 m-2 dark:bg-gray-700">
               {searchProducts === null ? (
                 <></>
               ) : searchProducts.length === 0 ? (

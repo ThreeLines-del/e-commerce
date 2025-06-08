@@ -89,6 +89,26 @@ const Header = () => {
             </button>
           )}
 
+          <div className="flex justify-center items-center hover:cursor-pointer">
+            {localStorage.getItem("auth-token") ? (
+              <h1
+                onClick={() => {
+                  localStorage.removeItem("auth-token");
+                  window.location.replace("/");
+                }}
+                className="text-gray-800 hover:text-blue-400 transition duration-300"
+              >
+                Logout
+              </h1>
+            ) : (
+              <NavLink to={"/signuplogin"}>
+                <h1 className="text-gray-800 hover:text-blue-400 transition duration-300">
+                  Login
+                </h1>
+              </NavLink>
+            )}
+          </div>
+
           <NavLink
             to={"/cart"}
             className="bg-gray-100 dark:bg-gray-400 flex gap-2 w-15 rounded-sm justify-center py-1 z-30 hover:bg-pink-200 transition duration-300"

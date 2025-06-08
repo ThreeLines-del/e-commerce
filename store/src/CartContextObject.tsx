@@ -10,10 +10,17 @@ export interface CartProductType {
   quantity: number;
 }
 
+export interface CartItemType {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 interface CartContextObjectType {
   items: CartProductType[] | null;
   getProductQuantity: (id: number) => number;
-  addOneToCart: (id: number) => void;
+  addOneToCart: (cartItem: CartItemType) => void;
   removeOneFromCart: (id: number) => void;
   deleteFromCart: (id: number) => void;
   getTotalCost: () => Promise<string>;
@@ -64,25 +71,55 @@ export function CartProvider({ children }: Children) {
     return quantity;
   }
 
-  function addOneToCart(id: number) {
-    const quantity = getProductQuantity(id);
+  async function addOneToCart(cartItem: CartItemType) {
+    // const quantity = getProductQuantity(id);
 
-    if (quantity === 0) {
-      setCartProducts([
-        {
-          id: id,
-          quantity: 1,
-        },
-        ...cartProducts,
-      ]);
+    // if (quantity === 0) {
+    //   setCartProducts([
+    //     {
+    //       id: id,
+    //       quantity: 1,
+    //     },
+    //     ...cartProducts,
+    //   ]);
+    // } else {
+    //   setCartProducts(
+    //     cartProducts.map((product) => {
+    //       return product.id == id
+    //         ? { ...product, quantity: product.quantity + 1 }
+    //         : product;
+    //     })
+    //   );
+    // }
+
+    const token = localStorage.getItem("auth-token");
+    console.log(cartItem);
+
+    if (!token) {
+      alert("No token found");
     } else {
-      setCartProducts(
-        cartProducts.map((product) => {
-          return product.id == id
-            ? { ...product, quantity: product.quantity + 1 }
-            : product;
-        })
-      );
+      try {
+        const response = await fetch("http://localhost:3000/api/cart/add", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ product: cartItem }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert("Added to cart");
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("Unkwon error occurred");
+        }
+      }
     }
   }
 

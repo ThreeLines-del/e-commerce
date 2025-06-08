@@ -11,6 +11,7 @@ const Product: React.FC<ProductProp> = ({ product }) => {
   const cart = useContext(CartContextObject);
   const quantity = cart.getProductQuantity(product.id);
   const sideCartState = useContext(SideCartContextObject);
+  console.log(quantity);
 
   return (
     <div className="border border-gray-100 dark:border-gray-600 h-auto flex flex-col gap-5 justify-center items-center pt-7 pb-8">
@@ -32,7 +33,14 @@ const Product: React.FC<ProductProp> = ({ product }) => {
             <h1>In Cart {`(${quantity})`}</h1>
             <div className="flex gap-2 text-white">
               <button
-                onClick={() => cart.addOneToCart(product.id)}
+                onClick={() =>
+                  cart.addOneToCart({
+                    productId: product.id.toString(),
+                    name: product.title,
+                    price: product.price,
+                    quantity: 1,
+                  })
+                }
                 className="bg-[#22177A] dark:bg-gray-800 hover:bg-blue-900 hover:cursor-pointer w-8 rounded-full transition duration-300"
               >
                 +
@@ -48,7 +56,12 @@ const Product: React.FC<ProductProp> = ({ product }) => {
         ) : (
           <button
             onClick={() => {
-              cart.addOneToCart(product.id);
+              cart.addOneToCart({
+                productId: product.id.toString(),
+                name: product.title,
+                price: product.price,
+                quantity: 1,
+              });
               sideCartState.setIsSideCartOpen(true);
             }}
             className="bg-[#22177A] dark:bg-gray-800 text-white text-sm hover:bg-blue-900 hover:cursor-pointer rounded-full py-1 px-5 shadow transition duration-300"

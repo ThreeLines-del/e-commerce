@@ -12,6 +12,7 @@ import SearchProvider from "./SearchContextObject.tsx";
 import DarkModeProvider from "./DarkModeContextObject.tsx";
 import SignupLoginPage from "./pages/SignUpLoginPage.tsx";
 import SignUpLoginProvider from "./SignUpLoginContextObject.tsx";
+import ProductPage from "./pages/ProductPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/signuplogin",
     element: <SignupLoginPage />,
+  },
+  {
+    path: "/product",
+    element: <ProductPage />,
   },
 ]);
 

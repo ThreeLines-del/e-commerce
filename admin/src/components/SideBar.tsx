@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaRegListAlt } from "react-icons/fa";
 import { useState } from "react";
+import uploadImage from "../assets/upload_image.png";
 
 const SideBar = () => {
   const [itemState, setItemState] = useState<String>("Add Product");
@@ -67,7 +68,12 @@ const SideBar = () => {
           );
         })}
       </ul>
-      <div></div>
+      <div className="flex-1 flex flex-col justify-end pb-5 px-5">
+        <div className="flex px-5 gap-5 items-center bg-gray-100 py-2 rounded-md">
+          <img className="h-12 w-12 rounded-full" src={uploadImage} alt="" />
+          <h1 className="text-gray-800 font-semibold">admin name</h1>
+        </div>
+      </div>
     </div>
   );
 };

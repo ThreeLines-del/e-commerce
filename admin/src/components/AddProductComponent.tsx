@@ -43,7 +43,7 @@ const AddProductComponent = () => {
   };
 
   return (
-    <div className="h-full pl-10 pr-20 py-5 flex flex-col gap-7">
+    <div className="h-full pl-10 pr-20 pt-10 flex flex-col gap-7">
       <div className="flex flex-col gap-2">
         <h1 className="font-semibold text-sm">Product Title</h1>
         <input

@@ -261,6 +261,22 @@ app.post("/api/cart/add", authMiddleware, async (req, res) => {
   }
 });
 
+// Get cart contents
+app.get("/api/cart/:userId", async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ userId: req.params.userId });
+    console.log(req.params.userId);
+
+    res.status(200).json({ success: true, cart: cart || { items: [] } });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occured" });
+    }
+  }
+});
+
 // Connect to database and run server
 if (!mongoUri) {
   console.error("MONGO_URI is not defined in environment variables.");

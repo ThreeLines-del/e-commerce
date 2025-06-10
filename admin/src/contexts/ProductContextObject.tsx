@@ -5,7 +5,9 @@ interface Children {
 }
 
 export interface ProductType {
+  id: number;
   name: string;
+  description: string;
   image: string;
   category: string;
   new_price: number;
@@ -15,11 +17,13 @@ export interface ProductType {
 interface ProductContextObjectType {
   allProducts: ProductType[] | undefined;
   addProduct: (productDetails: ProductType, image: File | undefined) => void;
+  deleteProduct: (id: number) => void;
 }
 
 export const ProductContextObject = createContext<ProductContextObjectType>({
   allProducts: [],
   addProduct: () => {},
+  deleteProduct: () => {},
 });
 
 function ProductProvider({ children }: Children) {
@@ -47,7 +51,7 @@ function ProductProvider({ children }: Children) {
     };
 
     getAllProducts();
-  }, []);
+  }, [allProducts]);
 
   async function addProduct(
     productDetails: ProductType,
@@ -106,9 +110,35 @@ function ProductProvider({ children }: Children) {
     }
   }
 
+  async function deleteProduct(id: Number) {
+    try {
+      const response = await fetch("http://localhost:3000/api/removeproduct", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log("Item deleted");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log("Unknown error occured");
+      }
+    }
+  }
+
   const contextObj = {
     allProducts: allProducts,
     addProduct: addProduct,
+    deleteProduct: deleteProduct,
   };
 
   return (

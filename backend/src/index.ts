@@ -74,6 +74,7 @@ app.post("/api/addproduct", async (req, res, next) => {
       category: req.body.category,
       new_price: req.body.new_price,
       old_price: req.body.old_price,
+      description: req.body.description,
     });
 
     await product.save();
@@ -104,6 +105,27 @@ app.post("/api/removeproduct", async (req, res, next) => {
       success: true,
       name: req.body.name,
     });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occured" });
+    }
+  }
+});
+
+// Get single product
+app.get("/api/product/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findOne({ id: id });
+
+    if (!product) {
+      res.status(404).json({ message: "product not found" });
+    }
+
+    res.status(200).json(product);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });
@@ -229,8 +251,6 @@ const authMiddleware = (req, res, next) => {
 app.post("/api/cart/add", authMiddleware, async (req, res) => {
   const userId = req.body.userId;
   const product = req.body.product;
-
-  console.log(product);
 
   try {
     let cart = await Cart.findOne({ userId: userId });

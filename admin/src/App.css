@@ -4,5 +4,5 @@ html,
   height: 100vh;
   width: 100vw;
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
 }

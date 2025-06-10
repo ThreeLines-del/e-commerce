@@ -6,7 +6,9 @@ import {
 
 const AddProductComponent = () => {
   const [productDetails, setProductDetails] = useState<ProductType>({
+    id: 0,
     name: "",
+    description: "",
     category: "Kids",
     image: "",
     new_price: 0,
@@ -36,14 +38,16 @@ const AddProductComponent = () => {
   };
 
   const changeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setProductDetails({ ...productDetails, [name]: value });
   };
 
   return (
-    <div className="h-full pl-10 pr-20 pt-10 flex flex-col gap-7">
+    <div className="h-full pl-10 pr-20 py-10 flex flex-col gap-7 overflow-y-auto">
       <div className="flex flex-col gap-2">
         <h1 className="font-semibold text-sm">Product Title</h1>
         <input
@@ -53,6 +57,16 @@ const AddProductComponent = () => {
           className="border h-9 px-2 w-90 rounded-md border-gray-400 focus:outline-none focus:ring-1 focus:ring-[#4f39f6]"
           type="text"
         />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <h1 className="font-semibold text-sm">Product Despcription</h1>
+        <textarea
+          name="description"
+          value={productDetails.description}
+          onChange={changeHandler}
+          className="border h-22 px-2 py-1 w-[680px] rounded-md border-gray-400 focus:outline-none focus:ring-1 focus:ring-[#4f39f6]"
+        ></textarea>
       </div>
 
       <div className="flex gap-10">
@@ -144,7 +158,9 @@ const AddProductComponent = () => {
         <button
           onClick={() => {
             setProductDetails({
+              id: 0,
               name: "",
+              description: "",
               category: "Kids",
               image: "",
               new_price: 0,

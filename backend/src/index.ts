@@ -114,7 +114,7 @@ app.post("/api/removeproduct", async (req, res, next) => {
   }
 });
 
-// Get single product
+// Get single product by id
 app.get("/api/product/:id", async (req, res) => {
   try {
     const { id } = req.params;

@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import { IoMdCheckmark } from "react-icons/io";
 import { useContext, useEffect, useState } from "react";
-import { CartContextObject, getProductDataById } from "../CartContextObject";
-import { ProductType } from "../ProductContextObject";
+import { CartContextObject } from "../CartContextObject";
+import { ProductContextObject, ProductType } from "../ProductContextObject";
 
 const ProductPage = () => {
   const params = useParams();
@@ -12,14 +12,18 @@ const ProductPage = () => {
     category: "",
     description: "",
     image: "",
-    price: 0,
-    title: "",
+    new_price: 0,
+    name: "",
+    old_price: 0,
   });
   const [quantity, setQuantity] = useState(1);
   const cart = useContext(CartContextObject);
+  const productContext = useContext(ProductContextObject);
 
   useEffect(() => {
-    getProductDataById(Number(params.id)).then((data) => setProduct(data));
+    productContext
+      .getProductById(Number(params.id))
+      .then((product) => setProduct(product));
   }, []);
 
   return (
@@ -30,11 +34,11 @@ const ProductPage = () => {
         <div className="w-full px-10 py-5">
           <div className="bg-white flex flex-col gap-4 p-2">
             <h1 className="text-3xl font-bold text-gray-800">
-              {product?.title}
+              {product?.name}
             </h1>
 
             <div className="flex gap-5 items-center">
-              <h1 className="text-2xl pr-1">${product?.price}</h1>
+              <h1 className="text-2xl pr-1">${product?.new_price}</h1>
               <div className="flex space-x-1 text-gray-300 cursor-pointer scale-125 border-l pl-2">
                 <span className="text-yellow-400">★</span>
                 <span className="text-yellow-400">★</span>
@@ -94,8 +98,8 @@ const ProductPage = () => {
             <button
               onClick={() =>
                 cart.addOneToCart({
-                  name: product.title,
-                  price: product.price,
+                  name: product.name,
+                  new_price: product.new_price,
                   productId: product.id.toString(),
                   quantity: quantity,
                 })

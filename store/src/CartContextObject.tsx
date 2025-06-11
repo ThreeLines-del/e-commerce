@@ -13,7 +13,7 @@ export interface CartProductType {
 export interface CartItemType {
   productId: string;
   name: string;
-  price: number;
+  new_price: number;
   quantity: number;
 }
 

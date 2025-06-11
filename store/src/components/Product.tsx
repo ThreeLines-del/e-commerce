@@ -27,7 +27,7 @@ const Product: React.FC<ProductProp> = ({ product }) => {
 
         <div className="flex flex-col gap-3 w-full justify-center items-center">
           <div className="w-full flex justify-center items-center px-10 dark:text-gray-100">
-            <h1 className="truncate">{product.title}</h1>
+            <h1 className="truncate">{product.name}</h1>
           </div>
 
           {quantity > 0 ? (
@@ -38,8 +38,8 @@ const Product: React.FC<ProductProp> = ({ product }) => {
                   onClick={() =>
                     cart.addOneToCart({
                       productId: product.id.toString(),
-                      name: product.title,
-                      price: product.price,
+                      name: product.name,
+                      new_price: product.new_price,
                       quantity: 1,
                     })
                   }
@@ -60,8 +60,8 @@ const Product: React.FC<ProductProp> = ({ product }) => {
               onClick={() => {
                 cart.addOneToCart({
                   productId: product.id.toString(),
-                  name: product.title,
-                  price: product.price,
+                  name: product.name,
+                  new_price: product.new_price,
                   quantity: 1,
                 });
                 sideCartState.setIsSideCartOpen(true);
@@ -73,15 +73,15 @@ const Product: React.FC<ProductProp> = ({ product }) => {
           )}
 
           <h1 className="text-xl dark:text-gray-100">
-            {`$${product.price.toString()}`.includes(".") ? (
+            {`$${product.new_price.toString()}`.includes(".") ? (
               <>
-                ${product.price.toString().split(".")[0]}
+                ${product.new_price.toString().split(".")[0]}
                 <span className="align-super text-xs ml-[1px]">
-                  {product.price.toString().split(".")[1]}
+                  {product.new_price.toString().split(".")[1]}
                 </span>
               </>
             ) : (
-              `$${product.price}`
+              `$${product.new_price}`
             )}
           </h1>
         </div>

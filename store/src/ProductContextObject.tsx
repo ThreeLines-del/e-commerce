@@ -2,11 +2,12 @@ import { createContext, useEffect, useState } from "react";
 
 export interface ProductType {
   id: number;
-  title: string;
-  price: number;
+  name: string;
   description: string;
-  category: string;
   image: string;
+  category: string;
+  new_price: number;
+  old_price: number;
 }
 
 interface Children {
@@ -15,11 +16,15 @@ interface Children {
 
 interface ProductContextObjectType {
   productItems: ProductType[];
+  getProductById: (id: Number) => Promise<ProductType>;
   getProductsByCategory: (category: string) => ProductType[];
 }
 
 export const ProductContextObject = createContext<ProductContextObjectType>({
   productItems: [],
+  getProductById: async () => {
+    return Promise.reject(new Error("No default implementation"));
+  },
   getProductsByCategory: () => [],
 });
 
@@ -28,22 +33,28 @@ export function ProductProvider({ children }: Children) {
 
   useEffect(() => {
     function getAllProducts() {
-      fetch("https://fakestoreapi.com/products")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error response");
-          }
-
-          return response.json();
-        })
-        .then((data: ProductType[]) => setProducts(data))
-        .catch((error: Error) => {
+      fetch("http://localhost:3000/api/allproducts")
+        .then((response) => response.json())
+        .then((data) => setProducts(data))
+        .catch((error) => {
           console.error(error);
         });
     }
 
     getAllProducts();
   }, []);
+
+  async function getProductById(id: Number): Promise<ProductType> {
+    const response = await fetch(`http://localhost:3000/api/product/${id}`);
+
+    if (!response.ok) {
+      console.log("Error response");
+    }
+
+    const data: ProductType = await response.json();
+
+    return data;
+  }
 
   function getProductsByCategory(category: string): ProductType[] {
     const selectedProducts = products.filter(
@@ -55,6 +66,7 @@ export function ProductProvider({ children }: Children) {
 
   const contextValue = {
     productItems: products,
+    getProductById: getProductById,
     getProductsByCategory,
   };
   return (

@@ -103,6 +103,7 @@ const AddProductComponent = () => {
           <option value="kid">Kids</option>
           <option value="men">Men</option>
           <option value="women">Women</option>
+          <option value="jewelry">Jewelry</option>
         </select>
       </div>
 

@@ -1,0 +1,56 @@
+import { FaArrowRight } from "react-icons/fa6";
+
+const ShopByCategory = () => {
+  return (
+    <div className="mt-5">
+      <div className="flex justify-between items-center py-5 px-8">
+        <h1 className="text-2xl font-semibold text-gray-800">
+          Shop By Cotegory
+        </h1>
+        <div className="flex justify-center items-center gap-2 scale-95">
+          <h1 className="font-semibold text-[#4f39f6]">
+            Browse all categories
+          </h1>
+          <FaArrowRight className="text-[#4f39f6]" />
+        </div>
+      </div>
+      <div className="h-[500px] grid grid-cols-2 grid-rows-2 px-10 gap-8 relative">
+        <div className="row-span-2 rounded-md overflow-hidden">
+          <img
+            className="object-cover h-full w-full"
+            src="/images/6.jpg"
+            alt=""
+          />
+          <div className="absolute bottom-0 m-5 text-white">
+            <h1 className="text-xl font-semibold">Men</h1>
+            <h1>Shop now</h1>
+          </div>
+        </div>
+        <div className="rounded-md overflow-hidden relative">
+          <img
+            className="h-full w-full object-cover"
+            src="images/8.jpg"
+            alt=""
+          />
+          <div className="absolute bottom-0 m-5 text-white">
+            <h1 className="text-xl font-semibold">Women</h1>
+            <h1>Shop now</h1>
+          </div>
+        </div>
+        <div className="bg-blue-400 rounded-md overflow-hidden relative">
+          <img
+            className="h-full w-full object-cover"
+            src="images/7.jpg"
+            alt=""
+          />
+          <div className="absolute bottom-0 m-5 text-white">
+            <h1 className="text-xl font-semibold">Jewelry</h1>
+            <h1>Shop now</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ShopByCategory;

@@ -9,6 +9,7 @@ const ProductPage = () => {
   const params = useParams();
   const [product, setProduct] = useState<ProductType>({
     id: 0,
+    _id: "",
     category: "",
     description: "",
     image: "",
@@ -22,7 +23,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     productContext
-      .getProductById(Number(params.id))
+      .getProductById(params.id || "")
       .then((product) => setProduct(product));
   }, []);
 

@@ -15,7 +15,7 @@ const ProductComponent = () => {
             return <ProductSkeleton key={i} />;
           })
         : products.map((product) => {
-            return <Product key={product.id} product={product} />;
+            return <Product key={product._id} product={product} />;
           })}
     </>
   );

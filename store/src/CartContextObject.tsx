@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { ProductType } from "./ProductContextObject";
+import { jwtDecode } from "jwt-decode";
 
 interface Children {
   children: React.ReactNode;
@@ -18,82 +18,56 @@ export interface CartItemType {
 }
 
 interface CartContextObjectType {
-  items: CartProductType[] | null;
-  getProductQuantity: (id: number) => number;
+  items: CartItemType[] | null;
   addOneToCart: (cartItem: CartItemType) => void;
   removeOneFromCart: (id: number) => void;
-  deleteFromCart: (id: number) => void;
-  getTotalCost: () => Promise<string>;
+  deleteFromCart: (id: string) => void;
   getTotalQuantity: () => number;
+  getTotalCost: () => number;
 }
 
 export const CartContextObject = createContext<CartContextObjectType>({
   items: [],
-  getProductQuantity: () => 0,
   addOneToCart: () => {},
   removeOneFromCart: () => {},
   deleteFromCart: () => {},
-  getTotalCost: () => Promise.resolve(""),
   getTotalQuantity: () => 0,
+  getTotalCost: () => 0,
 });
 
-export async function getProductDataById(id: number): Promise<ProductType> {
-  const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Error response");
-  }
-
-  const productData: ProductType = await response.json();
-
-  return productData;
-}
-
 export function CartProvider({ children }: Children) {
-  const [cartProducts, setCartProducts] = useState<CartProductType[]>(() => {
-    const stored = localStorage.getItem("cartItems");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartProducts));
-  }, [cartProducts]);
+    async function getAllCartItems() {
+      const token = localStorage.getItem("auth-token");
 
-  function getProductQuantity(id: number): number {
-    const quantity = cartProducts.find(
-      (product) => product.id === id
-    )?.quantity;
+      if (!token) {
+        console.log("No token found");
+      } else {
+        const decoded = jwtDecode<{ user: { id: string } }>(token);
 
-    if (quantity == undefined) {
-      return 0;
+        const userId = decoded.user.id;
+
+        const response = await fetch(
+          `http://localhost:3000/api/cart/${userId}`
+        );
+
+        if (!response.ok) {
+          console.log("Error response");
+        }
+
+        const responseData = await response.json();
+
+        setCartItems(responseData.cart.items);
+      }
     }
 
-    return quantity;
-  }
+    getAllCartItems();
+  }, [cartItems]);
 
   async function addOneToCart(cartItem: CartItemType) {
-    // const quantity = getProductQuantity(id);
-
-    // if (quantity === 0) {
-    //   setCartProducts([
-    //     {
-    //       id: id,
-    //       quantity: 1,
-    //     },
-    //     ...cartProducts,
-    //   ]);
-    // } else {
-    //   setCartProducts(
-    //     cartProducts.map((product) => {
-    //       return product.id == id
-    //         ? { ...product, quantity: product.quantity + 1 }
-    //         : product;
-    //     })
-    //   );
-    // }
-
     const token = localStorage.getItem("auth-token");
-    console.log(cartItem);
 
     if (!token) {
       alert("No token found");
@@ -108,9 +82,9 @@ export function CartProvider({ children }: Children) {
           body: JSON.stringify({ product: cartItem }),
         });
 
-        const data = await response.json();
+        const responseData = await response.json();
 
-        if (data.success) {
+        if (responseData.success) {
           alert("Added to cart");
         }
       } catch (error) {
@@ -123,51 +97,60 @@ export function CartProvider({ children }: Children) {
     }
   }
 
-  function removeOneFromCart(id: number) {
-    const quantity = getProductQuantity(id);
+  async function removeOneFromCart(id: number) {}
 
-    if (quantity === 1) {
-      deleteFromCart(id);
+  async function deleteFromCart(id: string) {
+    const token = localStorage.getItem("auth-token");
+
+    if (!token) {
+      console.log("No token found");
     } else {
-      setCartProducts(
-        cartProducts.map((product) =>
-          product.id === id
-            ? { ...product, quantity: product.quantity - 1 }
-            : product
-        )
-      );
+      const decoded = jwtDecode<{ user: { id: string } }>(token);
+
+      const userId = decoded.user.id;
+
+      try {
+        const response = await fetch("http://localhost:3000/api/cart/remove", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ userId: userId, productId: id }),
+        });
+
+        const responseData = await response.json();
+
+        setCartItems(responseData.cart.items);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("Unkwon error occurred");
+        }
+      }
     }
   }
 
-  function deleteFromCart(id: number) {
-    setCartProducts((cartProducts) =>
-      cartProducts.filter((product) => product.id !== id)
-    );
-  }
+  function getTotalCost(): number {
+    const subTotalCost = cartItems.reduce((total, item) => {
+      return total + item.new_price * item.quantity;
+    }, 0);
 
-  async function getTotalCost(): Promise<string> {
-    let totalCost = 0;
-
-    for (const cartItem of cartProducts) {
-      const productData = await getProductDataById(cartItem.id);
-      totalCost += productData.price * cartItem.quantity;
-    }
-
-    return totalCost.toFixed(2);
+    return Number(subTotalCost.toFixed(2));
   }
 
   function getTotalQuantity(): number {
-    return cartProducts.reduce((sum, product) => sum + product.quantity, 0);
+    return cartItems.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
   }
 
   const contextValue = {
-    items: cartProducts,
-    getProductQuantity,
+    items: cartItems,
     addOneToCart,
     removeOneFromCart,
     deleteFromCart,
-    getTotalCost,
     getTotalQuantity,
+    getTotalCost,
   };
   return (
     <CartContextObject.Provider value={contextValue}>

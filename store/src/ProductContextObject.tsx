@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 export interface ProductType {
   id: number;
+  _id: string;
   name: string;
   description: string;
   image: string;
@@ -16,7 +17,7 @@ interface Children {
 
 interface ProductContextObjectType {
   productItems: ProductType[];
-  getProductById: (id: Number) => Promise<ProductType>;
+  getProductById: (id: string) => Promise<ProductType>;
   getProductsByCategory: (category: string) => ProductType[];
 }
 
@@ -44,7 +45,7 @@ export function ProductProvider({ children }: Children) {
     getAllProducts();
   }, []);
 
-  async function getProductById(id: Number): Promise<ProductType> {
+  async function getProductById(id: String): Promise<ProductType> {
     const response = await fetch(`http://localhost:3000/api/product/${id}`);
 
     if (!response.ok) {

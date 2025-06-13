@@ -18,7 +18,7 @@ interface Children {
 interface ProductContextObjectType {
   productItems: ProductType[];
   getProductById: (id: string) => Promise<ProductType>;
-  getProductsByCategory: (category: string) => ProductType[];
+  getProductsByCategory: (selectedCats: string[]) => Promise<ProductType[]>;
 }
 
 export const ProductContextObject = createContext<ProductContextObjectType>({
@@ -26,7 +26,9 @@ export const ProductContextObject = createContext<ProductContextObjectType>({
   getProductById: async () => {
     return Promise.reject(new Error("No default implementation"));
   },
-  getProductsByCategory: () => [],
+  getProductsByCategory: async () => {
+    return Promise.reject(new Error("No default implementation"));
+  },
 });
 
 export function ProductProvider({ children }: Children) {
@@ -57,12 +59,18 @@ export function ProductProvider({ children }: Children) {
     return data;
   }
 
-  function getProductsByCategory(category: string): ProductType[] {
-    const selectedProducts = products.filter(
-      (product) => product.category === category
+  async function getProductsByCategory(
+    selectedCats: string[]
+  ): Promise<ProductType[]> {
+    const categoryParam = selectedCats.join(",");
+
+    const response = await fetch(
+      `http://localhost:3000/api/products?categories=${categoryParam}`
     );
 
-    return selectedProducts;
+    const data: ProductType[] = await response.json();
+
+    return data;
   }
 
   const contextValue = {

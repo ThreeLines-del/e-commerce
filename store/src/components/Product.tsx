@@ -11,7 +11,6 @@ interface ProductProp {
 const Product: React.FC<ProductProp> = ({ product }) => {
   const cart = useContext(CartContextObject);
   const sideCartState = useContext(SideCartContextObject);
-  // console.log(quantity);
 
   return (
     <div className="border border-gray-100 dark:border-gray-600 h-auto flex flex-col gap-5 justify-center items-center pt-7 pb-8 ">

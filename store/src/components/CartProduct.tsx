@@ -3,11 +3,11 @@ import { CartContextObject, CartItemType } from "../CartContextObject";
 import { ProductContextObject, ProductType } from "../ProductContextObject";
 import { IoMdCheckmark } from "react-icons/io";
 
-interface CartProduct {
+interface CartProductType {
   item: CartItemType;
 }
 
-const CartProduct: React.FC<CartProduct> = ({ item }) => {
+const CartProduct: React.FC<CartProductType> = ({ item }) => {
   const [product, setProduct] = useState<ProductType>({
     name: "",
     category: "",

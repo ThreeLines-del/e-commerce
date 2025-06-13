@@ -22,16 +22,30 @@ const CartPage = () => {
               return <CartProduct item={item} key={item.productId} />;
             })}
           </div>
-          <div className="w-full h-20 items-center flex justify-end">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-xl dark:text-gray-100">
-                {`Subtotal (${cart.getTotalQuantity()}): `}
-                <span className="text-lg font-medium">{`$${cart.getTotalCost()}`}</span>
-              </h1>
-              <button className="bg-amber-300 dark:bg-blue-500 dark:text-gray-100 rounded-2xl py-1 text-sm hover:cursor-pointer hover:bg-amber-400 dark:hover:bg-blue-700 transition duration-300">
-                Proceed to checkout
-              </button>
+
+          <div className="w-full flex flex-col bg-gray-50 rounded-lg px-10 py-5 mt-5 text-gray-800 ">
+            <div className="flex w-full justify-between border-b border-gray-300 py-4">
+              <h1 className="dark:text-gray-100">Subtotal</h1>
+              <h1 className="font-semibold">{`$${cart.getTotalCost()}`}</h1>
             </div>
+            <div className="flex w-full justify-between border-b border-gray-300 py-4">
+              <h1 className="dark:text-gray-100">Shipping</h1>
+              <h1 className="font-semibold">$5.00</h1>
+            </div>
+            <div className="flex w-full justify-between border-b border-gray-300 py-4">
+              <h1 className="dark:text-gray-100">Tax</h1>
+              <h1 className="font-semibold">$15.00</h1>
+            </div>
+            <div className="flex w-full justify-between py-4 font-semibold text-lg">
+              <h1 className="dark:text-gray-100">Order total</h1>
+              <h1 className="">{`$${5 + 15 + cart.getTotalCost()}`}</h1>
+            </div>
+          </div>
+
+          <div className="w-full flex justify-end">
+            <button className="bg-[#4f39f6] mt-5 py-2 px-5 text-white font-semibold dark:bg-blue-500 dark:text-gray-100 rounded-md hover:cursor-pointer hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300">
+              Proceed to checkout
+            </button>
           </div>
         </div>
       </div>

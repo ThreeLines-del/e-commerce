@@ -4,11 +4,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
-import jwt from "jsonwebtoken";
-import Cart from "../models/cart.model.js";
 import { productRouter } from "../routes/product.route.js";
 import { signUpLogInRouter } from "../routes/signuplogin.route.js";
 import { cartRouter } from "../routes/cart.route.js";
+import { productCategoryRouter } from "../routes/productcategory.route.js";
 
 dotenv.config();
 
@@ -57,6 +56,7 @@ app.get("/", (req, res) => {
 app.use("/api/", productRouter);
 app.use("/api/", signUpLogInRouter);
 app.use("/api/cart/", cartRouter);
+app.use("/api/products/", productCategoryRouter);
 
 // Connect to database and run server
 if (!mongoUri) {

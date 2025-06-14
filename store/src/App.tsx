@@ -7,6 +7,8 @@ import { SideCartContextObject } from "./SideCartContext";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import ShopByCategory from "./components/ShopByCategory";
+import NewArrivals from "./components/NewArrivals";
+import Incentives from "./components/Incentives";
 
 function App() {
   const sideCartState = useContext(SideCartContextObject);
@@ -22,19 +24,8 @@ function App() {
         <Header />
         <Hero />
         <ShopByCategory />
-
-        <div className="h-auto mt-5">
-          <div className="flex items-center py-4 px-8">
-            <h1 className="text-2xl font-semibold text-gray-800">
-              New Arrivals
-            </h1>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 bg-white dark:bg-gray-700">
-            <ProductComponent />
-          </div>
-        </div>
-
+        <NewArrivals />
+        <Incentives />
         <Footer />
       </div>
       <SideCart />

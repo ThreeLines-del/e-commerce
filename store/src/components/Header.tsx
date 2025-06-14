@@ -7,10 +7,13 @@ import Product from "./Product";
 import { DarkModeContextObject } from "../DarkModeContextObject";
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
+import { IoCartOutline } from "react-icons/io5";
+import { FiSearch } from "react-icons/fi";
 
 const Navbar = () => {
+  const cart = useContext(CartContextObject);
   return (
-    <nav className="bg-white dark:bg-gray-800 px-4 py-3 flex items-center border-b border-gray-100 dark:border-gray-600">
+    <nav className="bg-white h-16 dark:bg-gray-800 px-5 py-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-600">
       <ul className="flex space-x-6 text-gray-700 dark:text-gray-100 font-semibold">
         <li className="hover:text-blue-300 cursor-pointer transition duration-300">
           <NavLink to={"/"}>Home</NavLink>
@@ -19,12 +22,25 @@ const Navbar = () => {
           <NavLink to={"/categories"}>Categories</NavLink>
         </li>
       </ul>
+
+      <div className="flex">
+        <div className="flex justify-center items-center border-r border-gray-400 pr-5">
+          <FiSearch className="scale-125 text-gray-400" />
+        </div>
+
+        <NavLink
+          to={"/cart"}
+          className="flex gap-2 justify-center items-center pl-5"
+        >
+          <IoCartOutline className="scale-150 text-gray-400" />
+          <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
+        </NavLink>
+      </div>
     </nav>
   );
 };
 
 const Header = () => {
-  const cart = useContext(CartContextObject);
   const searchContext = useContext(SearchContextObject);
   const searchProducts = searchContext.filteredProducts;
   const isSearchClicked = searchContext.isSearchClicked;
@@ -33,11 +49,11 @@ const Header = () => {
 
   return (
     <header className="">
-      <div className="h-14 bg-white dark:bg-gray-800 flex w-full justify-between items-center px-5 border-b border-gray-100 dark:border-gray-600">
+      <div className="h-10 bg-gray-50 dark:bg-gray-800 flex w-full justify-between items-center px-5 border-b border-gray-100 dark:border-gray-600">
         <div className="z-30">
-          <h2 className="sm:text-2xl font-bold text-blue-500">lines.store</h2>
+          <h2 className="sm:text-2xl font-bold text-[#4f39f6]">lines.store</h2>
         </div>
-        <SearchBar />
+        {/* <SearchBar /> */}
         {isSearchClicked && (
           <div
             onClick={() => setIsSearchClicked(false)}
@@ -62,17 +78,20 @@ const Header = () => {
           <></>
         )}
 
+        <h1 className="font-semibold text-gray-800">
+          Get free deliveries on offers over $100
+        </h1>
+
         <div className="flex gap-5">
           {darkModeContext.darkMode ? (
             <button
               onClick={() =>
                 darkModeContext.setDarkMode(!darkModeContext.darkMode)
               }
-              className="flex gap-2 justify-center items-center text-gray-100 text-sm"
+              className="flex gap-2 justify-center items-center  text-gray-100 text-sm"
             >
-              Light Mode
               <span>
-                <MdOutlineLightMode className="scale-125 text-gray-100 hover:scale-150 hover:text-blue-400 hover:cursor-pointer transition ease-in-out duration-300" />
+                <MdDarkMode className="scale-110 text-gray-100 hover:scale-150 hover:text-blue-400 hover:cursor-pointer transition ease-in-out duration-300" />
               </span>
             </button>
           ) : (
@@ -80,16 +99,15 @@ const Header = () => {
               onClick={() =>
                 darkModeContext.setDarkMode(!darkModeContext.darkMode)
               }
-              className="flex gap-2 justify-center items-center text-gray-800 text-sm"
+              className="flex gap-2 justify-center items-center text-gray-400 text-sm"
             >
-              Dark Mode
               <span>
-                <MdDarkMode className="scale-110 text-gray-600 hover:scale-150 hover:text-blue-400 hover:cursor-pointer transition ease-in-out duration-300" />
+                <MdOutlineLightMode className="scale-125  text-gray-600 hover:scale-150 hover:text-blue-400 hover:cursor-pointer transition ease-in-out duration-300" />
               </span>
             </button>
           )}
 
-          <div className="flex justify-center items-center hover:cursor-pointer">
+          <div className="flex justify-center items-center hover:cursor-pointer font-semibold">
             {localStorage.getItem("auth-token") ? (
               <h1
                 onClick={() => {
@@ -103,19 +121,11 @@ const Header = () => {
             ) : (
               <NavLink to={"/signuplogin"}>
                 <h1 className="text-gray-800 hover:text-blue-400 transition duration-300">
-                  Login
+                  Sign in
                 </h1>
               </NavLink>
             )}
           </div>
-
-          <NavLink
-            to={"/cart"}
-            className="bg-gray-100 dark:bg-gray-400 flex gap-2 w-15 rounded-sm justify-center py-1 z-30 hover:bg-pink-200 transition duration-300"
-          >
-            <img className="h-6 hover:animate" src="/svgs/cart.png" alt="" />
-            <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
-          </NavLink>
         </div>
       </div>
       <Navbar />

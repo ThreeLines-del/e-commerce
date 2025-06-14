@@ -2,7 +2,7 @@ import { FaArrowRight } from "react-icons/fa6";
 
 const ShopByCategory = () => {
   return (
-    <div className="mt-5">
+    <div className="pt-10 pb-15 bg-gray-50">
       <div className="flex justify-between items-center py-5 px-8">
         <h1 className="text-2xl font-semibold text-gray-800">
           Shop By Cotegory

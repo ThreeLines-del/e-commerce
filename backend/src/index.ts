@@ -8,6 +8,7 @@ import { productRouter } from "../routes/product.route.js";
 import { signUpLogInRouter } from "../routes/signuplogin.route.js";
 import { cartRouter } from "../routes/cart.route.js";
 import { productCategoryRouter } from "../routes/productcategory.route.js";
+import Product from "../models/product.model.js";
 
 dotenv.config();
 
@@ -57,6 +58,20 @@ app.use("/api/", productRouter);
 app.use("/api/", signUpLogInRouter);
 app.use("/api/cart/", cartRouter);
 app.use("/api/products/", productCategoryRouter);
+
+app.get("/api/new", async (req, res) => {
+  try {
+    const newProducts = await Product.find().sort({ createdAt: -1 }).limit(4);
+
+    res.status(200).json(newProducts);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occured" });
+    }
+  }
+});
 
 // Connect to database and run server
 if (!mongoUri) {

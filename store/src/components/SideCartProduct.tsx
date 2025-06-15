@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContextObject, CartItemType } from "../CartContextObject";
 import { ProductContextObject, ProductType } from "../ProductContextObject";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 
 interface SideCartProductType {
   item: CartItemType;
@@ -35,10 +37,15 @@ const SideCartProduct: React.FC<SideCartProductType> = ({ item }) => {
         alt=""
       />
       <h1 className="text-sm font-medium dark:text-gray-100">{`$${cartProductData.new_price}`}</h1>
-      <div className="flex justify-between w-24 border-2 border-amber-300 dark:border-0 rounded-2xl text-xs dark:text-gray-100 py-[5px] px-2 mt-2 font-bold dark:bg-gray-600">
-        <h1 className="hover:cursor-pointer pr-2">+</h1>
-        <h1>{item.quantity}</h1>
-        <h1 className="hover:cursor-pointer pl-2">-</h1>
+
+      <div className="border-2 mt-2 border-amber-200 flex justify-between items-center w-24 rounded-2xl overflow-hidden">
+        <div className="p-[5px] text-gray-500 hover:bg-gray-100 hover:cursor-pointer">
+          <FaPlus />
+        </div>
+        <h1 className="leading-0 font-bold">{item.quantity}</h1>
+        <div className="p-[5px] text-gray-500 hover:bg-gray-100 hover:cursor-pointer">
+          <FaMinus />
+        </div>
       </div>
     </div>
   );

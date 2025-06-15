@@ -15,10 +15,10 @@ const Navbar = () => {
   return (
     <nav className="bg-white h-16 dark:bg-gray-800 px-5 py-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-600">
       <ul className="flex space-x-6 text-gray-700 dark:text-gray-100 font-semibold">
-        <li className="hover:text-blue-300 cursor-pointer transition duration-300">
+        <li className="hover:text-blue-500 cursor-pointer transition duration-300">
           <NavLink to={"/"}>Home</NavLink>
         </li>
-        <li className="hover:text-blue-300 cursor-pointer transition duration-300">
+        <li className="hover:text-blue-500 cursor-pointer transition duration-300">
           <NavLink to={"/categories"}>Categories</NavLink>
         </li>
       </ul>

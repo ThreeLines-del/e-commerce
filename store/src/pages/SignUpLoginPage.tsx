@@ -83,14 +83,20 @@ const SignupLoginPage = () => {
           ) : (
             <h1 onClick={() => setState("Login")} className="text-gray-700">
               Already have an account?{" "}
-              <span className="text-[#4f39f6] hover:cursor-pointer">
+              <span className="text-[#4f39f6] font-semibold hover:cursor-pointer">
                 Login here
               </span>
             </h1>
           )}
         </div>
       </div>
-      <div className="bg-red-300 flex-1 "></div>
+      <div className="bg-red-300 flex-1 ">
+        <img
+          className="h-full w-full object-cover"
+          src="/images/signup.jpg"
+          alt=""
+        />
+      </div>
     </div>
   );
 };

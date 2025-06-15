@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ProductType } from "../ProductContextObject";
 import Product from "./Product";
+import ProductSkeleton from "./ProductSkeleton";
 
 const NewArrivals = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const isLoading = !products || products.length === 0;
 
   useEffect(() => {
     fetch("http://localhost:3000/api/new")
@@ -18,9 +20,13 @@ const NewArrivals = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 bg-white dark:bg-gray-700">
-        {products.map((product) => {
-          return <Product product={product} key={product._id} />;
-        })}
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, i) => {
+              return <ProductSkeleton key={i} />;
+            })
+          : products.map((product) => {
+              return <Product product={product} key={product._id} />;
+            })}
       </div>
     </div>
   );

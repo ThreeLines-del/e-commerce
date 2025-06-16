@@ -103,3 +103,63 @@ export const removeFromCart = async (req: Request, res: Response) => {
     }
   }
 };
+
+// Update quantity by 1
+export const updateQuantityByOne = async (req: Request, res: Response) => {
+  const { userId, productId } = req.body;
+
+  try {
+    const cart = await Cart.findOne({ userId: userId });
+
+    if (!cart) {
+      res.status(404).json({ success: false });
+    } else {
+      const item = cart.items.find((item) => item.productId === productId);
+
+      if (item) {
+        item.quantity = (item.quantity ?? 0) + 1;
+        await cart.save();
+      }
+    }
+
+    const updatedCart = await Cart.findOne({ userId: userId });
+
+    res.status(200).json({ success: true, updatedCart });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occured" });
+    }
+  }
+};
+
+// Reduce quantity by 1
+export const reduceQuantityByOne = async (req: Request, res: Response) => {
+  const { userId, productId } = req.body;
+
+  try {
+    const cart = await Cart.findOne({ userId: userId });
+
+    if (!cart) {
+      res.status(404).json({ success: false });
+    } else {
+      const item = cart.items.find((item) => item.productId === productId);
+
+      if (item) {
+        item.quantity = (item.quantity ?? 0) - 1;
+        await cart.save();
+      }
+    }
+
+    const updatedCart = await Cart.findOne({ userId: userId });
+
+    res.status(200).json({ success: true, updatedCart });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occured" });
+    }
+  }
+};

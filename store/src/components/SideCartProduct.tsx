@@ -39,7 +39,17 @@ const SideCartProduct: React.FC<SideCartProductType> = ({ item }) => {
       <h1 className="text-sm font-medium dark:text-gray-100">{`$${cartProductData.new_price}`}</h1>
 
       <div className="border-2 mt-2 border-amber-200 flex justify-between items-center w-24 rounded-2xl overflow-hidden">
-        <div className="p-[5px] text-gray-500 hover:bg-gray-100 hover:cursor-pointer">
+        <div
+          onClick={() =>
+            cart.addOneToCart({
+              name: item.name,
+              productId: item.productId,
+              new_price: item.new_price,
+              quantity: 1,
+            })
+          }
+          className="p-[5px] text-gray-500 hover:bg-gray-100 hover:cursor-pointer"
+        >
           <FaPlus />
         </div>
         <h1 className="leading-0 font-bold">{item.quantity}</h1>

@@ -147,8 +147,15 @@ export const reduceQuantityByOne = async (req: Request, res: Response) => {
       const item = cart.items.find((item) => item.productId === productId);
 
       if (item) {
-        item.quantity = (item.quantity ?? 0) - 1;
-        await cart.save();
+        if ((item.quantity ?? 0) > 1) {
+          item.quantity = (item.quantity ?? 0) - 1;
+
+          await cart.save();
+        } else {
+          cart.items.pull({ productId: productId });
+
+          await cart.save();
+        }
       }
     }
 

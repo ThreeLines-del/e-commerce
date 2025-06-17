@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CartContextObject } from "../CartContextObject";
 import SideCartProduct from "./SideCartProduct";
 import { NavLink } from "react-router-dom";
@@ -8,6 +8,8 @@ const SideCart = () => {
   const cart = useContext(CartContextObject);
   const cartItems = cart.items;
   const isSideCartOpen = useContext(SideCartContextObject).isSideCartOpen;
+
+  const reversedCartItems = [...(cartItems ?? [])].reverse();
 
   return (
     <div
@@ -20,7 +22,7 @@ const SideCart = () => {
         {/* Fixed header */}
         <div className="w-full h-24 flex flex-col justify-center items-center border-b border-gray-400 dark:border-gray-600">
           <h1 className="text-sm dark:text-gray-100">Subtotal</h1>
-          <h1 className="text-lg font-medium text-red-900 dark:text-blue-400">{`$${cart.getTotalCost()}`}</h1>
+          <h1 className="text-lg font-bold text-red-900 dark:text-blue-400">{`$${cart.getTotalCost()}`}</h1>
           <button className="border border-gray-400 dark:border-0 rounded-2xl text-xs px-7 py-[2px] mt-2 hover:cursor-pointer hover:bg-gray-100 dark:hover:bg-blue-900 dark:text-gray-100 dark:bg-gray-800">
             <NavLink to={"/cart"}>Go to cart</NavLink>
           </button>
@@ -28,7 +30,7 @@ const SideCart = () => {
 
         {/* Scrollable content that fills the remaining height */}
         <div id="custom-scrollbar" className="flex-1 overflow-y-auto">
-          {cartItems?.reverse().map((item) => (
+          {reversedCartItems.map((item) => (
             <SideCartProduct item={item} key={item.productId} />
           ))}
         </div>

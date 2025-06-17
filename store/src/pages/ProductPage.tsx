@@ -101,7 +101,7 @@ const ProductPage = () => {
                 cart.addOneToCart({
                   name: product.name,
                   new_price: product.new_price,
-                  productId: product.id.toString(),
+                  productId: product._id,
                   quantity: quantity,
                 })
               }

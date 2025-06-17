@@ -20,23 +20,30 @@ export interface CartItemType {
 interface CartContextObjectType {
   items: CartItemType[] | null;
   addOneToCart: (cartItem: CartItemType) => void;
-  removeOneFromCart: (id: number) => void;
+  addOneToQuantity: (id: string) => void;
+  subtractOneFromQuantity: (id: string) => void;
   deleteFromCart: (id: string) => void;
   getTotalQuantity: () => number;
   getTotalCost: () => number;
+  loadingItems: { [id: string]: boolean };
 }
 
 export const CartContextObject = createContext<CartContextObjectType>({
   items: [],
   addOneToCart: () => {},
-  removeOneFromCart: () => {},
+  addOneToQuantity: () => {},
+  subtractOneFromQuantity: () => {},
   deleteFromCart: () => {},
   getTotalQuantity: () => 0,
   getTotalCost: () => 0,
+  loadingItems: {},
 });
 
 export function CartProvider({ children }: Children) {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [loadingItems, setLoadingItems] = useState<{
+    [id: string]: boolean;
+  }>({});
 
   useEffect(() => {
     async function getAllCartItems() {
@@ -97,7 +104,87 @@ export function CartProvider({ children }: Children) {
     }
   }
 
-  async function removeOneFromCart(id: number) {}
+  async function addOneToQuantity(id: string) {
+    setLoadingItems((prev) => ({ ...prev, [id]: true }));
+
+    const token = localStorage.getItem("auth-token");
+
+    if (!token) {
+      console.log("No token found");
+    } else {
+      const decoded = jwtDecode<{ user: { id: string } }>(token);
+
+      const userId = decoded.user.id;
+
+      try {
+        const response = await fetch("http://localhost:3000/api/cart/plusOne", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            productId: id,
+          }),
+        });
+
+        const responseData = await response.json();
+
+        setCartItems(responseData.cart.items);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("Unkwon error occurred");
+        }
+      } finally {
+        setLoadingItems((prev) => ({ ...prev, [id]: false }));
+      }
+    }
+  }
+
+  async function subtractOneFromQuantity(id: string) {
+    setLoadingItems((prev) => ({ ...prev, [id]: true }));
+    const token = localStorage.getItem("auth-token");
+
+    if (!token) {
+      console.log("No token found");
+    } else {
+      const decoded = jwtDecode<{ user: { id: string } }>(token);
+
+      const userId = decoded.user.id;
+
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/cart/minusOne",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: userId,
+              productId: id,
+            }),
+          }
+        );
+
+        const responseData = await response.json();
+
+        setCartItems(responseData.cart.items);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("Unkwon error occurred");
+        }
+      } finally {
+        setLoadingItems((prev) => ({ ...prev, [id]: false }));
+      }
+    }
+  }
 
   async function deleteFromCart(id: string) {
     const token = localStorage.getItem("auth-token");
@@ -147,10 +234,12 @@ export function CartProvider({ children }: Children) {
   const contextValue = {
     items: cartItems,
     addOneToCart,
-    removeOneFromCart,
+    addOneToQuantity,
+    subtractOneFromQuantity,
     deleteFromCart,
     getTotalQuantity,
     getTotalCost,
+    loadingItems,
   };
   return (
     <CartContextObject.Provider value={contextValue}>

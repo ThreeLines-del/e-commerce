@@ -44,15 +44,6 @@ const Footer = () => {
         <div className="text-gray-700 dark:text-gray-300">
           <h1
             onClick={() => {
-              searchContext.setSearchQuery("Electronics");
-              setIsSearchClicked(true);
-            }}
-            className="hover:underline hover:cursor-pointer"
-          >
-            Electronics
-          </h1>
-          <h1
-            onClick={() => {
               searchContext.setSearchQuery("Jewelery");
               setIsSearchClicked(true);
             }}

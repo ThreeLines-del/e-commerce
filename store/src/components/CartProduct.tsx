@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContextObject, CartItemType } from "../CartContextObject";
 import { ProductContextObject, ProductType } from "../ProductContextObject";
 import { IoMdCheckmark } from "react-icons/io";
+import { FadeLoader } from "react-spinners";
 
 interface CartProductType {
   item: CartItemType;
@@ -20,6 +21,7 @@ const CartProduct: React.FC<CartProductType> = ({ item }) => {
   });
   const cart = useContext(CartContextObject);
   const productContext = useContext(ProductContextObject);
+  const isLoading = product.id === 0;
 
   useEffect(() => {
     productContext
@@ -31,11 +33,15 @@ const CartProduct: React.FC<CartProductType> = ({ item }) => {
     <div className="h-48 grid grid-cols-5 border-b border-gray-300 dark:border-gray-600">
       <div className="flex items-center justify-center">
         <div className="bg-gray-100 h-40 w-40 flex justify-center items-center rounded-md">
-          <img
-            className="h-28 w-28 brightness-95"
-            src={product?.image}
-            alt=""
-          />
+          {isLoading ? (
+            <FadeLoader color="#99a1af" className="ml-3" />
+          ) : (
+            <img
+              className="h-28 w-28 brightness-95"
+              src={product?.image}
+              alt=""
+            />
+          )}
         </div>
       </div>
 

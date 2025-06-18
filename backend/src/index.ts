@@ -61,9 +61,28 @@ app.use("/api/products/", productCategoryRouter);
 
 app.get("/api/new", async (req, res) => {
   try {
-    const newProducts = await Product.find().sort({ createdAt: -1 }).limit(4);
+    const newProducts = await Product.find().sort({ createdAt: -1 }).limit(8);
 
     res.status(200).json(newProducts);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occured" });
+    }
+  }
+});
+
+app.get("/api/products/search", async (req, res) => {
+  const searchTerm = typeof req.query.q === "string" ? req.query.q : "";
+
+  try {
+    const results = await Product.find(
+      { $text: { $search: searchTerm } },
+      { score: { $meta: "textScore" } }
+    ).sort({ score: { $meta: "textScore" } });
+
+    res.json(results);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });

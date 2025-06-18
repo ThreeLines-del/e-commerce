@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
 
 const ShopByCategory = () => {
   return (
@@ -8,9 +9,12 @@ const ShopByCategory = () => {
           Shop By Cotegory
         </h1>
         <div className="flex justify-center items-center gap-2 scale-95">
-          <h1 className="font-semibold text-[#4f39f6]">
-            Browse all categories
-          </h1>
+          <NavLink to={"/categories"}>
+            <h1 className="font-semibold text-[#4f39f6]">
+              Browse all categories
+            </h1>
+          </NavLink>
+
           <FaArrowRight className="text-[#4f39f6]" />
         </div>
       </div>

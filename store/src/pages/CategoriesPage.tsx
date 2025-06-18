@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import { ProductContextObject, ProductType } from "../ProductContextObject";
-
+import { FadeLoader } from "react-spinners";
 import CategoryProduct from "../components/CategoryProduct";
 
 const Categories = () => {
@@ -9,6 +9,7 @@ const Categories = () => {
   const categories = ["men", "women", "jewelry"];
   const productContext = useContext(ProductContextObject);
   const [products, setProducts] = useState<ProductType[]>([]);
+  const isLoading = products.length === 0;
 
   useEffect(() => {
     productContext
@@ -83,14 +84,24 @@ const Categories = () => {
             </div>
           </div>
           <div className="flex-1">
-            <div
-              id="custom-scrollbar"
-              className="grid grid-cols-3 h-[520px] overflow-y-auto"
-            >
-              {products.map((product) => {
-                return <CategoryProduct product={product} key={product._id} />;
-              })}
-            </div>
+            {isLoading ? (
+              <>
+                <div className="h-full justify-center items-center flex">
+                  <FadeLoader color="#99a1af" />
+                </div>
+              </>
+            ) : (
+              <div
+                id="custom-scrollbar"
+                className="grid grid-cols-3 h-[520px] overflow-y-auto"
+              >
+                {products.map((product) => {
+                  return (
+                    <CategoryProduct product={product} key={product._id} />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

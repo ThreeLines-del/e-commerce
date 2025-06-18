@@ -33,7 +33,7 @@ const Navbar = () => {
           className="flex gap-2 justify-center items-center pl-5"
         >
           <IoCartOutline className="scale-150 text-gray-400" />
-          <h1 className="font-medium">{cart.getTotalQuantity()}</h1>
+          <h1 className="font-medium">{cart.getTotalCartItemNumber()}</h1>
         </NavLink>
       </div>
     </nav>

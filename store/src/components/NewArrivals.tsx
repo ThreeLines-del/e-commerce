@@ -21,7 +21,7 @@ const NewArrivals = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 bg-white dark:bg-gray-700">
         {isLoading
-          ? Array.from({ length: 4 }).map((_, i) => {
+          ? Array.from({ length: 8 }).map((_, i) => {
               return <ProductSkeleton key={i} />;
             })
           : products.map((product) => {

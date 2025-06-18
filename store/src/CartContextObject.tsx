@@ -23,7 +23,7 @@ interface CartContextObjectType {
   addOneToQuantity: (id: string) => void;
   subtractOneFromQuantity: (id: string) => void;
   deleteFromCart: (id: string) => void;
-  getTotalQuantity: () => number;
+  getTotalCartItemNumber: () => number;
   getTotalCost: () => number;
   loadingItems: { [id: string]: boolean };
 }
@@ -34,7 +34,7 @@ export const CartContextObject = createContext<CartContextObjectType>({
   addOneToQuantity: () => {},
   subtractOneFromQuantity: () => {},
   deleteFromCart: () => {},
-  getTotalQuantity: () => 0,
+  getTotalCartItemNumber: () => 0,
   getTotalCost: () => 0,
   loadingItems: {},
 });
@@ -227,8 +227,8 @@ export function CartProvider({ children }: Children) {
     return Number(subTotalCost.toFixed(2));
   }
 
-  function getTotalQuantity(): number {
-    return cartItems.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+  function getTotalCartItemNumber(): number {
+    return cartItems.length;
   }
 
   const contextValue = {
@@ -237,7 +237,7 @@ export function CartProvider({ children }: Children) {
     addOneToQuantity,
     subtractOneFromQuantity,
     deleteFromCart,
-    getTotalQuantity,
+    getTotalCartItemNumber,
     getTotalCost,
     loadingItems,
   };

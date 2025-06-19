@@ -3,7 +3,6 @@ import { CartContextObject } from "../CartContextObject";
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { SearchContextObject } from "../SearchContextObject";
-import Product from "./Product";
 import { DarkModeContextObject } from "../DarkModeContextObject";
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
@@ -12,6 +11,7 @@ import { FiSearch } from "react-icons/fi";
 
 const Navbar = () => {
   const cart = useContext(CartContextObject);
+
   return (
     <nav className="bg-white h-16 dark:bg-gray-800 px-5 py-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-600">
       <ul className="flex space-x-6 text-gray-700 dark:text-gray-100 font-semibold">
@@ -24,9 +24,7 @@ const Navbar = () => {
       </ul>
 
       <div className="flex">
-        <div className="flex justify-center items-center border-r border-gray-400 pr-5">
-          <FiSearch className="scale-125 text-gray-400" />
-        </div>
+        <SearchBar />
 
         <NavLink
           to={"/cart"}
@@ -41,10 +39,6 @@ const Navbar = () => {
 };
 
 const Header = () => {
-  const searchContext = useContext(SearchContextObject);
-  const searchProducts = searchContext.filteredProducts;
-  const isSearchClicked = searchContext.isSearchClicked;
-  const setIsSearchClicked = searchContext.setIsSearchClicked;
   const darkModeContext = useContext(DarkModeContextObject);
 
   return (
@@ -53,30 +47,6 @@ const Header = () => {
         <div className="z-30">
           <h2 className="sm:text-2xl font-bold text-[#4f39f6]">lines.store</h2>
         </div>
-        {/* <SearchBar /> */}
-        {isSearchClicked && (
-          <div
-            onClick={() => setIsSearchClicked(false)}
-            className="fixed inset-0 bg-black dark:bg-white opacity-50 z-10"
-          ></div>
-        )}
-        {isSearchClicked ? (
-          <div className="h-auto w-[300px] sm:w-[600px] md:w-[800px] xl:w-[1200px] absolute top-16 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-700 rounded-sm z-20 shadow hover:cursor-pointer">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 m-2 dark:bg-gray-700">
-              {searchProducts === null ? (
-                <></>
-              ) : searchProducts.length === 0 ? (
-                "No results found"
-              ) : (
-                searchProducts.map((product) => {
-                  return <Product product={product} key={product.id} />;
-                })
-              )}
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
 
         <h1 className="font-semibold text-gray-800">
           Get free deliveries on offers over $100

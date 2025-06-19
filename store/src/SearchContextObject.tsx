@@ -4,9 +4,7 @@ import { ProductContextObject, ProductType } from "./ProductContextObject";
 interface SearchContextObjectType {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  filteredProducts: ProductType[] | null;
-  isSearchClicked: boolean;
-  setIsSearchClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  searchResults: ProductType[];
 }
 
 interface Children {
@@ -16,47 +14,37 @@ interface Children {
 export const SearchContextObject = createContext<SearchContextObjectType>({
   searchQuery: "",
   setSearchQuery: () => {},
-  filteredProducts: [],
-  isSearchClicked: false,
-  setIsSearchClicked: () => {},
+  searchResults: [],
 });
 
 function SearchProvider({ children }: Children) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [debounceQuery, setDebounceQuery] = useState("");
-  const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
-  const products = useContext(ProductContextObject).productItems;
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<ProductType[]>([]);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebounceQuery(searchQuery);
-    }, 1000);
-
-    return () => {
-      clearTimeout(handler);
-    };
+    if (searchQuery.length > 2) {
+      fetchSearchResults(searchQuery);
+    } else {
+      setSearchResults([]);
+    }
   }, [searchQuery]);
 
-  const filteredProducts = debounceQuery
-    ? products
-        .filter((product) =>
-          `${product.title} ${product.category}`
-            .toLowerCase()
-            .includes(debounceQuery.toLowerCase())
-        )
-        .sort(
-          (a, b) =>
-            a.title.toLowerCase().indexOf(debounceQuery) -
-            b.title.toLowerCase().indexOf(debounceQuery)
-        )
-    : null;
+  async function fetchSearchResults(searchQuery: string) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/products/search?q=${encodeURIComponent(
+          searchQuery
+        )}`
+      );
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {}
+  }
 
   const contextObj = {
-    searchQuery: searchQuery,
-    setSearchQuery: setSearchQuery,
-    filteredProducts: filteredProducts,
-    isSearchClicked: isSearchClicked,
-    setIsSearchClicked: setIsSearchClicked,
+    searchQuery,
+    setSearchQuery,
+    searchResults,
   };
 
   return (

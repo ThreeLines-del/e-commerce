@@ -8,7 +8,7 @@ import { FadeLoader } from "react-spinners";
 import ProductComponent from "../components/ProductComponent";
 
 const ProductPage = () => {
-  const params = useParams();
+  const { id } = useParams();
   const [product, setProduct] = useState<ProductType>({
     id: 0,
     _id: "",
@@ -26,9 +26,9 @@ const ProductPage = () => {
 
   useEffect(() => {
     productContext
-      .getProductById(params.id || "")
+      .getProductById(id || "")
       .then((product) => setProduct(product));
-  }, []);
+  }, [id]);
 
   return (
     <div className="flex flex-col relative">
@@ -122,7 +122,7 @@ const ProductPage = () => {
                 </button>
               </div>
             </div>
-            <div className="w-full flex justify-center items-center pr-5">
+            <div className="w-full flex justify-center pt-3 pr-5">
               <div className="h-[500px] w-[540px] rounded-md overflow-hidden bg-gray-100 flex justify-center items-center">
                 <img
                   className="h-[400px] w-[500px] object-contain brightness-95"

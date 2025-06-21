@@ -5,9 +5,11 @@ import { FadeLoader } from "react-spinners";
 import CategoryProduct from "../components/CategoryProduct";
 
 const Categories = () => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const categories = ["men", "women", "jewelry"];
   const productContext = useContext(ProductContextObject);
+  const categories = ["men", "women", "jewelry"];
+  const selectedCategories = productContext.selectedCategories;
+  const setSelectedCategories = productContext.setSelectedCategories;
+
   const [products, setProducts] = useState<ProductType[]>([]);
   const isLoading = products.length === 0;
 
@@ -29,7 +31,7 @@ const Categories = () => {
     <div className="flex flex-col h-screen">
       <Header />
 
-      <div className="flex-1 flex flex-col sticky top-0">
+      <div className="flex-1 flex flex-col">
         <div className="py-5 mx-5 border-b border-gray-300">
           <h1 className="text-3xl font-bold text-gray-800">New Arrivals</h1>
           <p className="mt-2 text-gray-500">

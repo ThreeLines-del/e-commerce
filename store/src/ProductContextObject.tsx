@@ -19,6 +19,8 @@ interface ProductContextObjectType {
   productItems: ProductType[];
   getProductById: (id: string) => Promise<ProductType>;
   getProductsByCategory: (selectedCats: string[]) => Promise<ProductType[]>;
+  selectedCategories: string[];
+  setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const ProductContextObject = createContext<ProductContextObjectType>({
@@ -29,10 +31,13 @@ export const ProductContextObject = createContext<ProductContextObjectType>({
   getProductsByCategory: async () => {
     return Promise.reject(new Error("No default implementation"));
   },
+  selectedCategories: [],
+  setSelectedCategories: () => {},
 });
 
 export function ProductProvider({ children }: Children) {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   useEffect(() => {
     function getAllProducts() {
@@ -77,6 +82,8 @@ export function ProductProvider({ children }: Children) {
     productItems: products,
     getProductById: getProductById,
     getProductsByCategory,
+    selectedCategories,
+    setSelectedCategories,
   };
   return (
     <ProductContextObject.Provider value={contextValue}>

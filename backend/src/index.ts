@@ -1,4 +1,5 @@
 import express from "express";
+import Anthropic from "@anthropic-ai/sdk";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -14,6 +15,10 @@ dotenv.config();
 
 const port = process.env.PORT;
 const mongoUri = process.env.MONGO_URI;
+const claudeApi = process.env.CLAUDE_API || "";
+const anthropic = new Anthropic({
+  apiKey: claudeApi,
+});
 const app = express();
 
 // Body parser middleware
@@ -89,6 +94,75 @@ app.get("/api/products/search", async (req, res) => {
     } else {
       res.status(500).json({ message: "An unknown error occured" });
     }
+  }
+});
+
+// Search with Claude
+
+function parseClaudeJson(raw: string): any | null {
+  try {
+    // Step 1: Strip triple backticks and language hints
+    raw = raw
+      .replace(/^```json\s*/i, "")
+      .replace(/```$/, "")
+      .trim();
+
+    // Step 2: Convert smart quotes (often returned by Claude)
+    raw = raw
+      .replace(/[“”]/g, '"') // double quotes
+      .replace(/[‘’]/g, "'"); // single quotes
+
+    // Step 3: Parse JSON
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("Failed to parse Claude JSON:", err);
+    return null;
+  }
+}
+
+app.get("/api/claude", async (req, res) => {
+  const products = await Product.find({});
+
+  const msg = await anthropic.messages.create({
+    model: "claude-opus-4-20250514",
+    max_tokens: 1000,
+    temperature: 1,
+    system: ` 
+            You are a function that returns raw JSON only.
+            Do not repeat or echo the response.
+            Do not include any explanation or commentary.
+            Do not add triple backticks, markdown formatting, or explanatory text.
+            Only output valid JSON. Use standard double quotes only.
+            Your output should look exactly like:
+            {"items":[{"_id":"abc","name":"Product Name"}]}
+            Return an empty array if nothing matches.
+            Input string should be related to the items in the product list else return empty array.
+            `,
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `These are the products: ${JSON.stringify(products)}. 
+                    Find only items related to ${
+                      req.body.searchTerm
+                    } using values in the objects.
+                    Respond only with raw JSON.`,
+          },
+        ],
+      },
+    ],
+  });
+
+  const rawClaudeOutput = msg.content[0]?.text || "";
+  const data = parseClaudeJson(rawClaudeOutput);
+  console.log(rawClaudeOutput);
+
+  if (data) {
+    res.status(200).json(data);
+  } else {
+    res.status(500).json({ error: "Invalid response from Claude" });
   }
 });
 

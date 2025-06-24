@@ -2,12 +2,10 @@ import { useContext } from "react";
 import { CartContextObject } from "../CartContextObject";
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { SearchContextObject } from "../SearchContextObject";
 import { DarkModeContextObject } from "../DarkModeContextObject";
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
-import { FiSearch } from "react-icons/fi";
 
 const Navbar = () => {
   const cart = useContext(CartContextObject);
@@ -15,10 +13,13 @@ const Navbar = () => {
   return (
     <nav className="bg-white h-16 dark:bg-gray-800 px-5 py-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-600">
       <ul className="flex space-x-6 text-gray-700 dark:text-gray-100 font-semibold">
-        <li className="hover:text-blue-500 cursor-pointer transition duration-300">
+        <li className="cursor-pointer transition duration-300">
           <NavLink to={"/"}>Home</NavLink>
         </li>
-        <li className="hover:text-blue-500 cursor-pointer transition duration-300">
+        <li>
+          <NavLink to={"/allproducts"}>Products</NavLink>
+        </li>
+        <li className="cursor-pointer transition duration-300">
           <NavLink to={"/categories"}>Categories</NavLink>
         </li>
       </ul>

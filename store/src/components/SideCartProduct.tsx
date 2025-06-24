@@ -36,7 +36,7 @@ const SideCartProduct: React.FC<SideCartProductType> = ({ item }) => {
   }, [item]);
 
   return (
-    <div className="border-b border-gray-400 dark:border-gray-600 h-56 flex flex-col justify-center items-center py-5 px-2">
+    <div className="border-b border-gray-200 dark:border-gray-600 h-56 flex flex-col justify-center items-center py-5 px-2">
       {isLoading ? (
         <div className="h-28 w-24 flex justify-center items-center">
           <FadeLoader color="#99a1af" className="ml-3" />

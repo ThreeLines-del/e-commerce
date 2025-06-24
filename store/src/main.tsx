@@ -13,6 +13,7 @@ import DarkModeProvider from "./DarkModeContextObject.tsx";
 import SignupLoginPage from "./pages/SignUpLoginPage.tsx";
 import SignUpLoginProvider from "./SignUpLoginContextObject.tsx";
 import ProductPage from "./pages/ProductPage.tsx";
+import AllProductsPage from "./pages/AllProductsPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage />,
+  },
+  {
+    path: "/allproducts",
+    element: <AllProductsPage />,
   },
   {
     path: "/categories",

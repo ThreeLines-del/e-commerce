@@ -29,7 +29,6 @@ const Footer = () => {
         <p>Return Policy</p>
         <p>Privacy Policy</p>
         <p>Shipping Policy</p>
-        <p>FAQ</p>
       </div>
     </div>
   );

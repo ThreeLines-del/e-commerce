@@ -32,8 +32,8 @@ const Categories = () => {
       <Header />
 
       <div className="flex-1 flex flex-col">
-        <div className="py-5 mx-5 border-b border-gray-300">
-          <h1 className="text-3xl font-bold text-gray-800">New Arrivals</h1>
+        <div className="py-5 px-5 border-b border-gray-300 bg-gradient-to-r from-gray-100 via-pink-100 to-blue-50">
+          <h1 className="text-3xl font-bold text-gray-800 ">New Arrivals</h1>
           <p className="mt-2 text-gray-500">
             Checkout out the latest release of stuff!
           </p>

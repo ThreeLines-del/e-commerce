@@ -65,7 +65,7 @@ const ShopByCategory = () => {
 
         <div
           onClick={() => handleNavigateToCategories("jewelry")}
-          className="bg-blue-400 rounded-md overflow-hidden relative"
+          className="rounded-md overflow-hidden relative"
         >
           <img
             className="h-full w-full object-cover hover:brightness-95 hover:cursor-pointer"

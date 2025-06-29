@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import { ProductContextObject } from "../ProductContextObject";
 import Product from "../components/Product";
@@ -21,6 +21,10 @@ const AllProductsPage = () => {
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
   return (
     <div className="flex dark:bg-gray-800 transition-colors duration-300">
       <div
@@ -31,7 +35,12 @@ const AllProductsPage = () => {
         <Header />
 
         <div className="flex-1">
-          <div className="h-[1300px]">
+          <div className="py-5 px-5 border-b border-gray-300 bg-gradient-to-r from-gray-100 via-pink-100 to-blue-50">
+            <h1 className="text-3xl font-bold text-gray-800">All Products</h1>
+            <p className="mt-2 text-gray-500">Shop all products!</p>
+          </div>
+
+          <div className="">
             <div className="grid grid-cols-4">
               {currentProducts.map((product) => (
                 <Product product={product} key={product._id} />

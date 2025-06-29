@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <div className="h-[530px] relative p-8 rounded-md">
+    <div className="h-[530px] relative p-8 rounded-md bg-gradient-to-r from-gray-100 via-pink-100 to-blue-50">
       <img
         className="h-full w-full object-cover rounded-md"
         src="/images/4.jpg"

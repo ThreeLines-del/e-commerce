@@ -5,7 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { CartContextObject } from "../CartContextObject";
 import { ProductContextObject, ProductType } from "../ProductContextObject";
 import { FadeLoader } from "react-spinners";
-import ProductComponent from "../components/ProductComponent";
+import Product from "../components/Product";
+import Footer from "../components/Footer";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -19,6 +20,9 @@ const ProductPage = () => {
     name: "",
     old_price: 0,
   });
+  const [moreStuffByCategories, setMoreStuffByCategories] = useState<
+    ProductType[]
+  >([]);
   const [quantity, setQuantity] = useState(1);
   const cart = useContext(CartContextObject);
   const productContext = useContext(ProductContextObject);
@@ -30,13 +34,25 @@ const ProductPage = () => {
       .then((product) => setProduct(product));
   }, [id]);
 
+  useEffect(() => {
+    if (product.category) {
+      productContext
+        .getProductsByCategory([product.category])
+        .then((products) => setMoreStuffByCategories(products));
+    }
+  }, [product.category]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [product]);
+
   return (
     <div className="flex flex-col relative">
       <Header />
 
       {isLoading ? (
         <>
-          <div className="absolute h-screen w-screen flex justify-center items-center">
+          <div className="h-90 flex justify-center items-center">
             <FadeLoader color="#99a1af" />
           </div>
         </>
@@ -134,16 +150,22 @@ const ProductPage = () => {
           </div>
           <div className="">
             <div className="px-10 py-5">
-              <h1 className="text-xl font-semibold">More Stuff</h1>
+              <h1 className="text-xl font-semibold">
+                More Stuff from "{product.category}"
+              </h1>
             </div>
             <div className="">
               <div className="grid grid-cols-4">
-                <ProductComponent />
+                {moreStuffByCategories.map((product) => (
+                  <Product product={product} key={product._id} />
+                ))}
               </div>
             </div>
           </div>
         </>
       )}
+
+      <Footer />
     </div>
   );
 };

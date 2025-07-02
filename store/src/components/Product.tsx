@@ -15,7 +15,7 @@ const Product: React.FC<ProductProp> = ({ product }) => {
   return (
     <div className="border border-gray-100 dark:border-gray-600 h-auto flex flex-col gap-5 justify-center items-center pt-7 pb-8 ">
       <NavLink to={`/product/${product._id}`}>
-        <div className="bg-gray-100 dark:bg-gray-200 h-60 w-64 flex justify-center items-center rounded-md hover:cursor-pointer hover:brightness-95">
+        <div className="bg-gray-100 dark:bg-gray-200 h-52 w-52 lg:h-60 lg:w-64 flex justify-center items-center rounded-md hover:cursor-pointer hover:brightness-95">
           <img
             className="h-36 w-36 object-fill brightness-95 dark:brightness-90"
             src={product.image}

@@ -30,13 +30,13 @@ const ShopByCategory = () => {
           <FaArrowRight className="text-[#4f39f6]" />
         </div>
       </div>
-      <div className="h-[500px] grid grid-cols-2 grid-rows-2 px-10 gap-8 relative">
+      <div className="sm:h-[500px] grid grid-cols-1 sm:grid-cols-2 grid-rows-2 px-10 gap-8">
         <div
           onClick={() => handleNavigateToCategories("men")}
-          className="row-span-2 rounded-md overflow-hidden"
+          className="row-span-2 rounded-md overflow-hidden relative h-80 sm:h-auto"
         >
           <img
-            className="object-cover h-full w-full hover:brightness-95 hover:cursor-pointer"
+            className="object-fill sm:object-cover h-full w-full hover:brightness-95 hover:cursor-pointer"
             src="/images/6.jpg"
             alt=""
           />
@@ -49,7 +49,7 @@ const ShopByCategory = () => {
 
         <div
           onClick={() => handleNavigateToCategories("women")}
-          className="rounded-md overflow-hidden relative"
+          className="rounded-md overflow-hidden relative h-80 sm:h-auto"
         >
           <img
             className="h-full w-full object-cover hover:brightness-95 hover:cursor-pointer"
@@ -65,7 +65,7 @@ const ShopByCategory = () => {
 
         <div
           onClick={() => handleNavigateToCategories("jewelry")}
-          className="rounded-md overflow-hidden relative"
+          className="rounded-md overflow-hidden relative h-80 sm:h-auto"
         >
           <img
             className="h-full w-full object-cover hover:brightness-95 hover:cursor-pointer"

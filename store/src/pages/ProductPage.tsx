@@ -58,7 +58,7 @@ const ProductPage = () => {
         </>
       ) : (
         <>
-          <div className="flex">
+          <div className="flex flex-col lg:flex-row">
             <div className="w-full px-10 py-5">
               <div className="bg-white flex flex-col gap-4 p-2">
                 <h1 className="text-3xl font-bold text-gray-800">
@@ -138,10 +138,10 @@ const ProductPage = () => {
                 </button>
               </div>
             </div>
-            <div className="w-full flex justify-center pt-3 pr-5">
+            <div className="w-full flex justify-center pt-3 pl-5 pr-5">
               <div className="h-[500px] w-[540px] rounded-md overflow-hidden bg-gray-100 flex justify-center items-center">
                 <img
-                  className="h-[400px] w-[500px] object-contain brightness-95"
+                  className="h-90 lg:h-[400px] w-80 lg:w-[500px] object-contain brightness-95"
                   src={product?.image}
                   alt=""
                 />
@@ -155,7 +155,7 @@ const ProductPage = () => {
               </h1>
             </div>
             <div className="">
-              <div className="grid grid-cols-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {moreStuffByCategories.map((product) => (
                   <Product product={product} key={product._id} />
                 ))}

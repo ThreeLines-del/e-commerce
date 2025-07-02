@@ -11,7 +11,7 @@ const Navbar = () => {
   const cart = useContext(CartContextObject);
 
   return (
-    <nav className="bg-white h-16 dark:bg-gray-800 px-5 py-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-600">
+    <nav className="bg-white sm:h-16 dark:bg-gray-800 px-5 py-3 flex flex-col sm:flex-row gap-2 items-center justify-between border-b border-gray-100 dark:border-gray-600">
       <ul className="flex space-x-6 text-gray-700 dark:text-gray-100 font-semibold">
         <li className="cursor-pointer transition duration-300">
           <NavLink to={"/"}>Home</NavLink>
@@ -49,7 +49,7 @@ const Header = () => {
           <h2 className="sm:text-2xl font-bold text-[#4f39f6]">lines.store</h2>
         </div>
 
-        <h1 className="font-semibold text-gray-800">
+        <h1 className="font-semibold text-gray-800 text-sm">
           Get free deliveries on offers over $100
         </h1>
 
@@ -85,7 +85,7 @@ const Header = () => {
                   localStorage.removeItem("auth-token");
                   window.location.replace("/");
                 }}
-                className="text-gray-800 hover:text-blue-400 transition duration-300"
+                className="text-gray-800 hover:text-blue-400 transition duration-300 text-sm"
               >
                 Logout
               </h1>

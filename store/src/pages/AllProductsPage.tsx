@@ -41,7 +41,7 @@ const AllProductsPage = () => {
           </div>
 
           <div className="">
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {currentProducts.map((product) => (
                 <Product product={product} key={product._id} />
               ))}

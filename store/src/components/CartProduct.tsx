@@ -32,12 +32,12 @@ const CartProduct: React.FC<CartProductType> = ({ item }) => {
   return (
     <div className="h-48 grid grid-cols-5 border-b border-gray-300 dark:border-gray-600">
       <div className="flex items-center justify-center">
-        <div className="bg-gray-100 h-40 w-40 flex justify-center items-center rounded-md">
+        <div className="bg-gray-100 h-32 sm:h-40 w-52 sm:w-60 flex justify-center items-center rounded-md">
           {isLoading ? (
             <FadeLoader color="#99a1af" className="ml-3" />
           ) : (
             <img
-              className="h-28 w-28 brightness-95"
+              className="h-20 sm:h-28 w-14 sm:w-28 brightness-95"
               src={product?.image}
               alt=""
             />

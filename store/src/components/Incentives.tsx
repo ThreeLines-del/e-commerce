@@ -3,12 +3,12 @@ const Incentives = () => {
     <div className="m-8 rounded-md bg-gray-50">
       <div className="flex flex-col pt-10 pb-8">
         <div className="flex items-center justify-center">
-          <h1 className="text-2xl font-bold p-5">
+          <h1 className="text-xl sm:text-2xl font-bold p-5">
             We built our business on customer service
           </h1>
         </div>
 
-        <div className="grid grid-cols-3 h-60">
+        <div className="grid h-auto md:grid-cols-3 md:h-60 text-sm">
           <div className="flex flex-col items-center gap-2 pt-5">
             <img className="h-16" src="/svgs/freeshipping.png" alt="" />
 

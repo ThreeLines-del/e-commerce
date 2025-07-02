@@ -42,7 +42,7 @@ const SearchBar = () => {
       className="relative flex justify-center items-center border-r border-gray-400 pr-5 gap-5"
     >
       <input
-        className="border border-gray-300 focus:ring-1 focus:outline-none focus:ring-[#4f39f6] h-8 w-80 rounded-sm px-3 text-sm"
+        className="border border-gray-300 focus:ring-1 focus:outline-none focus:ring-[#4f39f6] h-8 w-[370px] sm:w-80 rounded-sm px-3 text-sm"
         type="text"
         value={searchContext.searchQuery}
         onChange={(e) => {

@@ -40,7 +40,7 @@ const Categories = () => {
         </div>
 
         <div className="flex-1 flex">
-          <div className="w-[450px] flex flex-col px-8 py-5 text-sm">
+          <div className="w-40 md:w-60 xl:w-[450px] flex flex-col px-8 py-5 text-sm">
             <div className="flex flex-col gap-4 pt-5 pb-10 border-b border-gray-300">
               <h1 className="font-semibold text-gray-800">Category</h1>
               <ul className="flex flex-col gap-1 text-gray-600">
@@ -95,7 +95,7 @@ const Categories = () => {
             ) : (
               <div
                 id="custom-scrollbar"
-                className="grid grid-cols-3 h-[520px] overflow-y-auto"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 h-[520px] overflow-y-auto"
               >
                 {products.map((product) => {
                   return (

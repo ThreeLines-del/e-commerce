@@ -19,7 +19,7 @@ const NewArrivals = () => {
         <h1 className="text-2xl font-semibold text-gray-800">New Arrivals</h1>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 bg-white dark:bg-gray-700">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 bg-white dark:bg-gray-700">
         {isLoading
           ? Array.from({ length: 8 }).map((_, i) => {
               return <ProductSkeleton key={i} />;

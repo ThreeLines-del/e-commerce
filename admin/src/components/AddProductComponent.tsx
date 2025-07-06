@@ -9,7 +9,7 @@ const AddProductComponent = () => {
     id: 0,
     name: "",
     description: "",
-    category: "Kids",
+    category: "men",
     image: "",
     new_price: 0,
     old_price: 0,
@@ -100,7 +100,6 @@ const AddProductComponent = () => {
           onChange={changeHandler}
           name="category"
         >
-          <option value="kid">Kids</option>
           <option value="men">Men</option>
           <option value="women">Women</option>
           <option value="jewelry">Jewelry</option>

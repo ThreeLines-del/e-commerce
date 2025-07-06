@@ -29,6 +29,6 @@ html,
   background: #f0f0f0;
 }
 #custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: gray; /* red-900 */
+  background-color: #c2cbdb; /* red-900 */
   border-radius: 4px;
 }

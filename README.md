@@ -2,6 +2,10 @@
 
 A full-stack e-commerce application built with TypeScript, featuring a customer-facing store, admin panel, and REST API backend.
 
+## 🚀 Live Demo
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6b71a643-e4bb-45d2-a418-d3a9d9f8ae12/deploy-status)](https://app.netlify.com/projects/precious-kataifi-083559/deploys)
+
 ## 🏗️ Project Structure
 
 This project consists of three main applications:

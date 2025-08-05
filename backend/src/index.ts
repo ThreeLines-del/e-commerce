@@ -1,5 +1,4 @@
 import express from "express";
-import Anthropic from "@anthropic-ai/sdk";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -16,10 +15,6 @@ dotenv.config();
 
 const port = process.env.PORT;
 const mongoUri = process.env.MONGO_URI;
-const claudeApi = process.env.CLAUDE_API || "";
-const anthropic = new Anthropic({
-  apiKey: claudeApi,
-});
 const app = express();
 
 // Body parser middleware

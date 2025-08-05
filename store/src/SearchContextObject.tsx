@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { ProductContextObject, ProductType } from "./ProductContextObject";
+import { createContext, useEffect, useState } from "react";
+import { ProductType } from "./ProductContextObject";
 
 interface SearchContextObjectType {
   searchQuery: string;

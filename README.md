@@ -4,7 +4,7 @@ A full-stack e-commerce application built with TypeScript, featuring a customer-
 
 ## 🚀 Live Demo
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/6b71a643-e4bb-45d2-a418-d3a9d9f8ae12/deploy-status)](https://app.netlify.com/projects/precious-kataifi-083559/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6b71a643-e4bb-45d2-a418-d3a9d9f8ae12/deploy-status)](https://precious-kataifi-083559.netlify.app/)
 
 ## 🏗️ Project Structure
 

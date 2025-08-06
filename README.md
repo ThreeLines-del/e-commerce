@@ -78,7 +78,7 @@ This project consists of three main applications:
 
 - Node.js (v16 or higher)
 - MongoDB database
-- npm or yarn package manager
+- npm package manager
 
 ### Environment Variables
 
